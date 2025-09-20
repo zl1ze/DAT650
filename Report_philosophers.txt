@@ -1,0 +1,4 @@
+Task 2.1
+To implement the assertions and make sure that a fork can only be used by one philosopher at a time, the array int held[N] is created globally, 
+and atomically incremented and asserted every time a fork is picked up held[id]++ and (assert(held[id] == 1)), and when dropped it is decremented
+and asserted that held[id]is 0.
