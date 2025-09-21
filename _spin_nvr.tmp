@@ -1,0 +1,9 @@
+never NoSharedForks {    /* !([] (((((held[0]<=1)) && ((held[1]<=1))) && ((held[2]<=1))) && ((held[3]<=1)))) */
+T0_init:
+	do
+	:: atomic { (! ((((((held[0]<=1)) && ((held[1]<=1))) && ((held[2]<=1))) && ((held[3]<=1))))) -> assert(!(! ((((((held[0]<=1)) && ((held[1]<=1))) && ((held[2]<=1))) && ((held[3]<=1)))))) }
+	:: (1) -> goto T0_init
+	od;
+accept_all:
+	skip
+}

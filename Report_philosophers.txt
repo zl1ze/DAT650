@@ -2,3 +2,10 @@ Task 2.1
 To implement the assertions and make sure that a fork can only be used by one philosopher at a time, the array int held[N] is created globally, 
 and atomically incremented and asserted every time a fork is picked up held[id]++ and (assert(held[id] == 1)), and when dropped it is decremented
 and asserted that held[id]is 0.
+Task 2.2
+Using a LTL formula, a global ltl function NoSharedForks is created, with the LTL formula [](held[0] <= 1, held[1] <= 1..) etc including each fork, 
+with the formula meaning that held[i] must always be 1 or 0, so that no two philosophers may hold the same fork. This solution is global, always checking
+while the assertions checked when a fork was picked up or set down, but the functionality appears to be the same.
+Task 3.1
+After running spin -a, gcc -o and ./pan -a [-N NoSharedForks], no liveness errors are shown to occur so therefore there are no deadlocks
+Task 3.2
