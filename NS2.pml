@@ -71,5 +71,44 @@ active proctype Alice() {
 }
 
 active proctype Bob() {
-   printf("placeholder for Bob\n")
+   /* local variables */
+
+  mtype pkey;      /* the other agent's public key                 */
+  mtype pnonce;    /* nonce that we receive from the other agent   */
+  Crypt messageAB; /* our encrypted message to the other party     */
+  Crypt data;      /* received encrypted message                   */
+
+
+  /* Initialization  */
+
+  partnerB = agentA;
+  pkey     = keyA;
+
+
+  /* Send the first message to the other party */
+
+  network ? (msg1, agentB, data);
+
+  /* Wait for an answer. Observe that we are pattern-matching on the
+     messages that start with msg2 and agentA, that is, we block until 
+     we see a message with values msg2 and agentA as the first and second  
+     components. The third component is copied to the variable data. */
+
+     /* Obtain Alices's nonce */
+
+  pnonce = data.content2;
+  messageAB.key = pkey;
+  messageAB.content1 = pnonce;
+  messageAB.content2 = nonceB;
+
+  network ! msg2 (partnerB, messageAB);
+
+  /* Receive the last messaage */
+  network ? (msg3 ,agentB, messageAB);
+
+
+  /* and last - update the auxilary status variable */
+  statusB = ok;
 }
+
+ltl task2 { <>((statusA == ok) && (statusB == ok)) }

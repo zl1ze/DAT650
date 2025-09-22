@@ -22,115 +22,58 @@ settable(void)
 {	Trans *T;
 	Trans *settr(int, int, int, int, int, char *, int, int, int);
 
-	trans = (Trans ***) emalloc(5*sizeof(Trans **));
+	trans = (Trans ***) emalloc(4*sizeof(Trans **));
 
-	/* proctype 3: EventuallyEats */
+	/* proctype 2: task2 */
 
-	trans[3] = (Trans **) emalloc(14*sizeof(Trans *));
+	trans[2] = (Trans **) emalloc(7*sizeof(Trans *));
 
-	trans[3][6]	= settr(57,0,5,1,0,".(goto)", 0, 2, 0);
-	T = trans[3][5] = settr(56,0,0,0,0,"DO", 0, 2, 0);
-	T = T->nxt	= settr(56,0,1,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(56,0,3,0,0,"DO", 0, 2, 0);
-	trans[3][1]	= settr(52,0,10,3,0,"(!(((((eating[0]==0)||(eating[1]==0))||(eating[2]==0))||(eating[3]==0))))", 1, 2, 0);
-	trans[3][2]	= settr(53,0,10,1,0,"goto accept_S4", 0, 2, 0);
-	trans[3][3]	= settr(54,0,5,1,0,"(1)", 0, 2, 0);
-	trans[3][4]	= settr(55,0,5,1,0,"goto T0_init", 0, 2, 0);
-	trans[3][7]	= settr(58,0,10,1,0,"break", 0, 2, 0);
-	trans[3][11]	= settr(62,0,10,1,0,".(goto)", 0, 2, 0);
-	T = trans[3][10] = settr(61,0,0,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(61,0,8,0,0,"DO", 0, 2, 0);
-	trans[3][8]	= settr(59,0,10,4,0,"(!(((((eating[0]==0)||(eating[1]==0))||(eating[2]==0))||(eating[3]==0))))", 1, 2, 0);
-	trans[3][9]	= settr(60,0,10,1,0,"goto accept_S4", 0, 2, 0);
-	trans[3][12]	= settr(63,0,13,1,0,"break", 0, 2, 0);
-	trans[3][13]	= settr(64,0,0,5,5,"-end-", 0, 3500, 0);
+	trans[2][4]	= settr(29,0,3,1,0,".(goto)", 0, 2, 0);
+	T = trans[2][3] = settr(28,0,0,0,0,"DO", 0, 2, 0);
+	    T->nxt	= settr(28,0,1,0,0,"DO", 0, 2, 0);
+	trans[2][1]	= settr(26,0,3,3,0,"(!(((statusA==ok)&&(statusB==ok))))", 1, 2, 0);
+	trans[2][2]	= settr(27,0,3,1,0,"goto T0_init", 0, 2, 0);
+	trans[2][5]	= settr(30,0,6,1,0,"break", 0, 2, 0);
+	trans[2][6]	= settr(31,0,0,4,4,"-end-", 0, 3500, 0);
 
-	/* proctype 2: NoSharedForks */
+	/* proctype 1: Bob */
 
-	trans[2] = (Trans **) emalloc(11*sizeof(Trans *));
+	trans[1] = (Trans **) emalloc(12*sizeof(Trans *));
 
-	trans[2][7]	= settr(48,0,6,1,0,".(goto)", 0, 2, 0);
-	T = trans[2][6] = settr(47,0,0,0,0,"DO", 0, 2, 0);
-	T = T->nxt	= settr(47,0,3,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(47,0,4,0,0,"DO", 0, 2, 0);
-	T = trans[ 2][3] = settr(44,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(44,2,1,0,0,"ATOMIC", 1, 2, 0);
-	trans[2][1]	= settr(42,0,6,6,6,"(!(((((held[0]<=1)&&(held[1]<=1))&&(held[2]<=1))&&(held[3]<=1))))", 1, 2, 0); /* m: 2 -> 6,0 */
-	reached2[2] = 1;
-	trans[2][2]	= settr(0,0,0,0,0,"assert(!(!(((((held[0]<=1)&&(held[1]<=1))&&(held[2]<=1))&&(held[3]<=1)))))",0,0,0);
-	trans[2][4]	= settr(45,0,6,1,0,"(1)", 0, 2, 0);
-	trans[2][5]	= settr(46,0,6,1,0,"goto T0_init", 0, 2, 0);
-	trans[2][8]	= settr(49,0,9,1,0,"break", 0, 2, 0);
-	trans[2][9]	= settr(50,0,10,1,0,"(1)", 0, 2, 0);
-	trans[2][10]	= settr(51,0,0,7,7,"-end-", 0, 3500, 0);
+	trans[1][1]	= settr(15,0,2,5,5,"partnerB = agentA", 1, 2, 0);
+	trans[1][2]	= settr(16,0,3,6,6,"pkey = keyA", 0, 2, 0);
+	trans[1][3]	= settr(17,0,4,7,7,"network?msg1,agentB,data.key,data.content1,data.content2", 1, 503, 0);
+	trans[1][4]	= settr(18,0,8,8,8,"pnonce = data.content2", 0, 2, 0); /* m: 5 -> 0,8 */
+	reached1[5] = 1;
+	trans[1][5]	= settr(0,0,0,0,0,"messageAB.key = pkey",0,0,0);
+	trans[1][6]	= settr(0,0,0,0,0,"messageAB.content1 = pnonce",0,0,0);
+	trans[1][7]	= settr(0,0,0,0,0,"messageAB.content2 = nonceB",0,0,0);
+	trans[1][8]	= settr(22,0,9,9,9,"network!msg2,partnerB,messageAB.key,messageAB.content1,messageAB.content2", 1, 3, 0);
+	trans[1][9]	= settr(23,0,10,10,10,"network?msg3,agentB,messageAB.key,messageAB.content1,messageAB.content2", 1, 503, 0);
+	trans[1][10]	= settr(24,0,11,11,11,"statusB = ok", 1, 2, 0);
+	trans[1][11]	= settr(25,0,0,12,12,"-end-", 0, 3500, 0);
 
-	/* proctype 1: :init: */
+	/* proctype 0: Alice */
 
-	trans[1] = (Trans **) emalloc(21*sizeof(Trans *));
+	trans[0] = (Trans **) emalloc(16*sizeof(Trans *));
 
-	T = trans[ 1][19] = settr(40,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(40,2,1,0,0,"ATOMIC", 1, 3, 0);
-	trans[1][1]	= settr(22,2,7,8,8,"i = 0", 1, 3, 0);
-	trans[1][8]	= settr(29,2,7,1,0,".(goto)", 1, 3, 0);
-	T = trans[1][7] = settr(28,2,0,0,0,"DO", 1, 3, 0);
-	T = T->nxt	= settr(28,2,2,0,0,"DO", 1, 3, 0);
-	    T->nxt	= settr(28,2,5,0,0,"DO", 1, 3, 0);
-	trans[1][2]	= settr(23,2,3,9,0,"((i<4))", 1, 3, 0);
-	trans[1][3]	= settr(24,2,7,10,10,"fork[i]!1", 1, 3, 0); /* m: 4 -> 7,0 */
-	reached1[4] = 1;
-	trans[1][4]	= settr(0,0,0,0,0,"i = (i+1)",0,0,0);
-	trans[1][5]	= settr(26,2,10,2,0,"else", 1, 3, 0);
-	trans[1][6]	= settr(27,2,10,1,0,"goto :b1", 1, 3, 0); /* m: 10 -> 0,16 */
-	reached1[10] = 1;
-	trans[1][9]	= settr(30,2,10,1,0,"break", 1, 3, 0);
-	trans[1][10]	= settr(31,2,16,11,11,"i = 0", 1, 3, 0);
-	trans[1][17]	= settr(38,2,16,1,0,".(goto)", 1, 3, 0);
-	T = trans[1][16] = settr(37,2,0,0,0,"DO", 1, 3, 0);
-	T = T->nxt	= settr(37,2,11,0,0,"DO", 1, 3, 0);
-	    T->nxt	= settr(37,2,13,0,0,"DO", 1, 3, 0);
-	trans[1][11]	= settr(32,2,18,12,12,"((i>=4))", 1, 3, 0); /* m: 12 -> 18,0 */
-	reached1[12] = 1;
-	trans[1][12]	= settr(33,2,18,1,0,"goto :b2", 1, 3, 0);
-	trans[1][13]	= settr(34,2,14,2,0,"else", 1, 3, 0);
-	trans[1][14]	= settr(35,2,15,13,13,"(run phil(i))", 1, 3, 0);
-	trans[1][15]	= settr(36,2,16,14,14,"i = (i+1)", 1, 3, 0);
-	trans[1][18]	= settr(39,0,20,1,0,"break", 1, 3, 0);
-	trans[1][20]	= settr(41,0,0,15,15,"-end-", 0, 3500, 0);
-
-	/* proctype 0: phil */
-
-	trans[0] = (Trans **) emalloc(23*sizeof(Trans *));
-
-	trans[0][20]	= settr(19,0,19,1,0,".(goto)", 0, 2, 0);
-	T = trans[0][19] = settr(18,0,0,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(18,0,1,0,0,"DO", 0, 2, 0);
-	trans[0][1]	= settr(0,0,2,16,0,"printf('Philosopher %d is thinking\\n',id)", 0, 2, 0);
-	trans[0][2]	= settr(1,0,4,17,17,"fork[id]?inuse", 1, 503, 0);
-	T = trans[ 0][4] = settr(3,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(3,2,3,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][3]	= settr(2,0,5,18,18,"held[id] = (held[id]+1)", 1, 2, 0);
-	trans[0][5]	= settr(4,0,7,19,19,"fork[(((id+4)-1)%4)]?inuse", 1, 503, 0);
-	T = trans[ 0][7] = settr(6,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(6,2,6,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][6]	= settr(5,0,10,20,20,"held[(((id+4)-1)%4)] = (held[(((id+4)-1)%4)]+1)", 1, 2, 0); /* m: 8 -> 0,10 */
-	reached0[8] = 1;
-	trans[0][8]	= settr(0,0,0,0,0,"printf('Philosopher %d is eating with forks %d and %d \\n',id,id,(((id+4)-1)%4))",0,0,0);
-	T = trans[ 0][10] = settr(9,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(9,2,9,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][9]	= settr(8,0,12,21,21,"eating[id] = (eating[id]+1)", 1, 2, 0);
-	T = trans[ 0][12] = settr(11,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(11,2,11,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][11]	= settr(10,0,14,22,22,"eating[id] = (eating[id]-1)", 1, 2, 0);
-	T = trans[ 0][14] = settr(13,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(13,2,13,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][13]	= settr(12,0,15,23,23,"held[id] = (held[id]-1)", 1, 2, 0);
-	trans[0][15]	= settr(14,0,17,24,24,"fork[id]!1", 1, 3, 0);
-	T = trans[ 0][17] = settr(16,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(16,2,16,0,0,"ATOMIC", 1, 2, 0);
-	trans[0][16]	= settr(15,0,18,25,25,"held[(((id+4)-1)%4)] = (held[(((id+4)-1)%4)]-1)", 1, 2, 0);
-	trans[0][18]	= settr(17,0,19,26,26,"fork[(((id+4)-1)%4)]!1", 1, 3, 0);
-	trans[0][21]	= settr(20,0,22,1,0,"break", 0, 2, 0);
-	trans[0][22]	= settr(21,0,0,27,27,"-end-", 0, 3500, 0);
+	trans[0][1]	= settr(0,0,2,13,13,"partnerA = agentB", 1, 2, 0);
+	trans[0][2]	= settr(1,0,6,14,14,"pkey = keyB", 0, 2, 0); /* m: 3 -> 0,6 */
+	reached0[3] = 1;
+	trans[0][3]	= settr(0,0,0,0,0,"messageAB.key = pkey",0,0,0);
+	trans[0][4]	= settr(0,0,0,0,0,"messageAB.content1 = agentA",0,0,0);
+	trans[0][5]	= settr(0,0,0,0,0,"messageAB.content2 = nonceA",0,0,0);
+	trans[0][6]	= settr(5,0,7,15,15,"network!msg1,partnerA,messageAB.key,messageAB.content1,messageAB.content2", 1, 3, 0);
+	trans[0][7]	= settr(6,0,8,16,16,"network?msg2,agentA,data.key,data.content1,data.content2", 1, 503, 0);
+	trans[0][8]	= settr(7,0,13,17,17,"(((data.key==keyA)&&(data.content1==nonceA)))", 0, 2, 0); /* m: 9 -> 13,0 */
+	reached0[9] = 1;
+	trans[0][9]	= settr(0,0,0,0,0,"pnonce = data.content2",0,0,0);
+	trans[0][10]	= settr(0,0,0,0,0,"messageAB.key = pkey",0,0,0);
+	trans[0][11]	= settr(0,0,0,0,0,"messageAB.content1 = pnonce",0,0,0);
+	trans[0][12]	= settr(0,0,0,0,0,"messageAB.content2 = 0",0,0,0);
+	trans[0][13]	= settr(12,0,14,18,18,"network!msg3,partnerA,messageAB.key,messageAB.content1,messageAB.content2", 1, 3, 0);
+	trans[0][14]	= settr(13,0,15,19,19,"statusA = ok", 1, 2, 0);
+	trans[0][15]	= settr(14,0,0,20,20,"-end-", 0, 3500, 0);
 	/* np_ demon: */
 	trans[_NP_] = (Trans **) emalloc(3*sizeof(Trans *));
 	T = trans[_NP_][0] = settr(9997,0,1,_T5,0,"(np_)", 1,2,0);

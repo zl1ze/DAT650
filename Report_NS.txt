@@ -1,0 +1,5 @@
+Task 2.a 
+We used the acceptance mode in Spin since this is a liveness property, to check that both Alice and Bob execute fully eventually
+Task 2.b 
+Weak fairness affects the answer since weak fairness ensures that they will eventually execute, even though they could be kept waiting while they are executing, or get stuck in a deadlock.
+We compiled without the -f flag, so this property does hold without weak fairness.

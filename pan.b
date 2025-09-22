@@ -2,157 +2,155 @@
 	default: Uerror("bad return move");
 	case  0: goto R999; /* nothing to undo */
 
-		 /* CLAIM EventuallyEats */
+		 /* CLAIM task2 */
 ;
 		;
-		;
-		;
 		
-	case 5: // STATE 13
+	case 4: // STATE 6
 		;
 		p_restor(II);
 		;
 		;
 		goto R999;
 
-		 /* CLAIM NoSharedForks */
-;
-		
-	case 6: // STATE 1
-		goto R999;
+		 /* PROC Bob */
 
-	case 7: // STATE 10
+	case 5: // STATE 1
 		;
-		p_restor(II);
-		;
+		now.partnerB = trpt->bup.oval;
 		;
 		goto R999;
 
-		 /* PROC :init: */
-
-	case 8: // STATE 1
+	case 6: // STATE 2
 		;
-		((P1 *)_this)->i = trpt->bup.oval;
+		((P1 *)_this)->pkey = trpt->bup.oval;
 		;
 		goto R999;
-;
+
+	case 7: // STATE 3
 		;
-		
-	case 10: // STATE 4
+		XX = 1;
+		unrecv(now.network, XX-1, 0, 9, 1);
+		unrecv(now.network, XX-1, 1, 3, 0);
+		unrecv(now.network, XX-1, 2, ((P1 *)_this)->data.key, 0);
+		unrecv(now.network, XX-1, 3, ((P1 *)_this)->data.content1, 0);
+		unrecv(now.network, XX-1, 4, ((P1 *)_this)->data.content2, 0);
+		((P1 *)_this)->data.key = trpt->bup.ovals[0];
+		((P1 *)_this)->data.content1 = trpt->bup.ovals[1];
+		((P1 *)_this)->data.content2 = trpt->bup.ovals[2];
 		;
-		((P1 *)_this)->i = trpt->bup.oval;
-		_m = unsend(now.fork[ Index(((P1 *)_this)->i, 4) ]);
 		;
+		ungrab_ints(trpt->bup.ovals, 3);
+		goto R999;
+
+	case 8: // STATE 7
+		;
+		((P1 *)_this)->messageAB.content2 = trpt->bup.ovals[3];
+		((P1 *)_this)->messageAB.content1 = trpt->bup.ovals[2];
+		((P1 *)_this)->messageAB.key = trpt->bup.ovals[1];
+		((P1 *)_this)->pnonce = trpt->bup.ovals[0];
+		;
+		ungrab_ints(trpt->bup.ovals, 4);
+		goto R999;
+
+	case 9: // STATE 8
+		;
+		_m = unsend(now.network);
+		;
+		goto R999;
+
+	case 10: // STATE 9
+		;
+		XX = 1;
+		unrecv(now.network, XX-1, 0, 7, 1);
+		unrecv(now.network, XX-1, 1, 3, 0);
+		unrecv(now.network, XX-1, 2, ((P1 *)_this)->messageAB.key, 0);
+		unrecv(now.network, XX-1, 3, ((P1 *)_this)->messageAB.content1, 0);
+		unrecv(now.network, XX-1, 4, ((P1 *)_this)->messageAB.content2, 0);
+		((P1 *)_this)->messageAB.key = trpt->bup.ovals[0];
+		((P1 *)_this)->messageAB.content1 = trpt->bup.ovals[1];
+		((P1 *)_this)->messageAB.content2 = trpt->bup.ovals[2];
+		;
+		;
+		ungrab_ints(trpt->bup.ovals, 3);
 		goto R999;
 
 	case 11: // STATE 10
 		;
-		((P1 *)_this)->i = trpt->bup.oval;
+		now.statusB = trpt->bup.oval;
 		;
 		goto R999;
 
 	case 12: // STATE 11
 		;
-	/* 0 */	((P1 *)_this)->i = trpt->bup.oval;
-		;
-		;
-		goto R999;
-
-	case 13: // STATE 14
-		;
-		;
-		delproc(0, now._nr_pr-1);
-		;
-		goto R999;
-
-	case 14: // STATE 15
-		;
-		((P1 *)_this)->i = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 15: // STATE 20
-		;
 		p_restor(II);
 		;
 		;
 		goto R999;
 
-		 /* PROC phil */
-;
+		 /* PROC Alice */
+
+	case 13: // STATE 1
 		;
-		
-	case 17: // STATE 2
+		now.partnerA = trpt->bup.oval;
 		;
-	/* 0 */	((P0 *)_this)->inuse = trpt->bup.ovals[1];
+		goto R999;
+
+	case 14: // STATE 5
+		;
+		((P0 *)_this)->messageAB.content2 = trpt->bup.ovals[3];
+		((P0 *)_this)->messageAB.content1 = trpt->bup.ovals[2];
+		((P0 *)_this)->messageAB.key = trpt->bup.ovals[1];
+		((P0 *)_this)->pkey = trpt->bup.ovals[0];
+		;
+		ungrab_ints(trpt->bup.ovals, 4);
+		goto R999;
+
+	case 15: // STATE 6
+		;
+		_m = unsend(now.network);
+		;
+		goto R999;
+
+	case 16: // STATE 7
+		;
 		XX = 1;
-		unrecv(now.fork[ Index(((P0 *)_this)->id, 4) ], XX-1, 0, ((int)((P0 *)_this)->inuse), 1);
-		((P0 *)_this)->inuse = trpt->bup.ovals[0];
+		unrecv(now.network, XX-1, 0, 8, 1);
+		unrecv(now.network, XX-1, 1, 4, 0);
+		unrecv(now.network, XX-1, 2, ((P0 *)_this)->data.key, 0);
+		unrecv(now.network, XX-1, 3, ((P0 *)_this)->data.content1, 0);
+		unrecv(now.network, XX-1, 4, ((P0 *)_this)->data.content2, 0);
+		((P0 *)_this)->data.key = trpt->bup.ovals[0];
+		((P0 *)_this)->data.content1 = trpt->bup.ovals[1];
+		((P0 *)_this)->data.content2 = trpt->bup.ovals[2];
 		;
 		;
-		ungrab_ints(trpt->bup.ovals, 2);
+		ungrab_ints(trpt->bup.ovals, 3);
 		goto R999;
 
-	case 18: // STATE 3
+	case 17: // STATE 12
 		;
-		now.held[ Index(((P0 *)_this)->id, 4) ] = trpt->bup.oval;
+		((P0 *)_this)->messageAB.content2 = trpt->bup.ovals[3];
+		((P0 *)_this)->messageAB.content1 = trpt->bup.ovals[2];
+		((P0 *)_this)->messageAB.key = trpt->bup.ovals[1];
+		((P0 *)_this)->pnonce = trpt->bup.ovals[0];
 		;
+		ungrab_ints(trpt->bup.ovals, 4);
 		goto R999;
 
-	case 19: // STATE 5
+	case 18: // STATE 13
 		;
-	/* 0 */	((P0 *)_this)->inuse = trpt->bup.ovals[1];
-		XX = 1;
-		unrecv(now.fork[ Index((((((P0 *)_this)->id+4)-1)%4), 4) ], XX-1, 0, ((int)((P0 *)_this)->inuse), 1);
-		((P0 *)_this)->inuse = trpt->bup.ovals[0];
-		;
-		;
-		ungrab_ints(trpt->bup.ovals, 2);
-		goto R999;
-
-	case 20: // STATE 6
-		;
-		now.held[ Index((((((P0 *)_this)->id+4)-1)%4), 4) ] = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 21: // STATE 9
-		;
-		now.eating[ Index(((P0 *)_this)->id, 4) ] = trpt->bup.oval;
+		_m = unsend(now.network);
 		;
 		goto R999;
 
-	case 22: // STATE 11
+	case 19: // STATE 14
 		;
-		now.eating[ Index(((P0 *)_this)->id, 4) ] = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 23: // STATE 13
-		;
-		now.held[ Index(((P0 *)_this)->id, 4) ] = trpt->bup.oval;
+		now.statusA = trpt->bup.oval;
 		;
 		goto R999;
 
-	case 24: // STATE 15
-		;
-		_m = unsend(now.fork[ Index(((P0 *)_this)->id, 4) ]);
-		;
-		goto R999;
-
-	case 25: // STATE 16
-		;
-		now.held[ Index((((((P0 *)_this)->id+4)-1)%4), 4) ] = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 26: // STATE 18
-		;
-		_m = unsend(now.fork[ Index((((((P0 *)_this)->id+4)-1)%4), 4) ]);
-		;
-		goto R999;
-
-	case 27: // STATE 22
+	case 20: // STATE 15
 		;
 		p_restor(II);
 		;
