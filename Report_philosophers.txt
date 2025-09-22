@@ -9,3 +9,8 @@ while the assertions checked when a fork was picked up or set down, but the func
 Task 3.1
 After running spin -a, gcc -o and ./pan -a [-N NoSharedForks], no liveness errors are shown to occur so therefore there are no deadlocks
 Task 3.2
+We are testing that at least one of the philosophers are eating at each moment, thereby the eating array never has all values as 0:s. 
+Task 3.3
+This would require that you tested every possible permutations of how the philosophers eat (acquire forks), thus to test that no starvation every occurs would 
+have to test for an infinite amount of time. SPIN itself do not support testing for strong fairness, just weak fairness. 
+

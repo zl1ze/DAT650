@@ -3,6 +3,7 @@
 chan fork[N]= [1] of { bit }; // Channel with array of forks
 
 int held[N]
+int eating[N]
 proctype phil(int id) {
   bit inuse; // bit to set that fork is used
   do
@@ -17,6 +18,14 @@ proctype phil(int id) {
       }
 
       printf("Philosopher %d is eating with forks %d and %d \n", id, id, (id + N -1)%N);
+
+      atomic{
+        eating[id]++;
+      }
+      atomic{
+        eating[id]--;
+      }
+
       atomic{
         held[id]--;
       }
@@ -50,4 +59,8 @@ init  {
 
 ltl NoSharedForks{
   [] (held[0] <= 1 && held[1] <= 1 && held[2] <= 1 && held[3] <= 1)
+}
+
+ltl EventuallyEats {
+  []<> (eating[0] == 0 || eating[1] == 0 || eating[2] == 0 || eating[3] == 0)
 }
