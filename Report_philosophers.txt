@@ -13,4 +13,18 @@ We are testing that at least one of the philosophers are eating at each moment, 
 Task 3.3
 This would require that you tested every possible permutations of how the philosophers eat (acquire forks), thus to test that no starvation every occurs would 
 have to test for an infinite amount of time. SPIN itself do not support testing for strong fairness, just weak fairness. 
+Task 4.1
+We are fairly confident that the solution is correct, our LTL formulas verify that deadlocks will
+not occur and that philosophers eventually get to eat. Unit tests would increase our confidence
+slighty, but the biggest risk is the inherent randomness of which philosopher gets to eat first, but the
+atomic operations ensure that there won't be a case with each philosopher holding only one fork 
+and waiting for the next. I don't think we would want to bet a large amount of money, due to the inherent 
+weak fairness of spin.
+Task 4.2 
+One risk would be weak fairness, since we can't guarantee with the LTL formula that something
+will happen, but it does guarantee what will not happen (One fork being held by two philosophers for example).
+Another risk would be that the LTL requirements do not account for every problematic state
+and Spin only verifies the given LTL formulas, which might make us believe that the requirements
+are met while they in fact are not.
+
 
