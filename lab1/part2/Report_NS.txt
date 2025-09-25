@@ -1,0 +1,25 @@
+Task 2.a 
+We used the acceptance mode in Spin since this is a liveness property, to check that both Alice and Bob execute fully eventually
+Task 2.b 
+Weak fairness affects the answer since weak fairness ensures that they will eventually execute, even though they could be kept waiting while they are executing, or get stuck in a deadlock.
+We compiled without the -f flag, so this property should hold without weak fairness.
+Task 3.a 
+We once again used the acceptance mode in spin since the property is a liveness property.
+Task 3.b 
+We did not run spin with weak fairness, so with weak fairness the property might have held.
+Task 3.c 
+Looking at the trail, the Introder is performing a type of replay attack 
+where it forges a message msg1 and sends to Bob, and while Bob prepares a message. the Introdes does the same for Alice, 
+thus interrupting the three-way handshake to start a conversation. 
+Task 6.a 
+Used appcetance since we are testing for liveliness. 
+Task 6.b 
+?
+Task 6.c 
+propAB: Since only Alice have implemented awareness for the Intruder, 
+she is aware that she is talking to the Intruder; but Bob thinks she is talking to him. 
+propA: Spin does not report a violation of propA in this execution because Alice did not think she was talking to Bob.
+propB: Holds, since Bob thinks he talked to Alice and the intruder does not know Bob’s nonce.
+Task 7:
+The patch works because it prevents the intruder from successfully impersonating another principal and thereby blocks replay attacks that previously caused the protocol to fai
+This fixed the flaw of step 2 where there was no identification of the sender Y. 

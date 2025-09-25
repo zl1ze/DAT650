@@ -1,7 +1,8 @@
 mtype = {ok, err, msg1, msg2, msg3, keyA, keyB, agentA, agentB,
 	 nonceA, nonceB, agentI, keyI, nonceI };
 
-typedef Crypt { mtype key, content1, content2 };
+// typedef Crypt { mtype key, content1, content2};
+typedef Crypt { mtype key, content1, content2, content3 };
 
 chan network = [0] of {mtype, /* msg# */
 		       mtype, /* receiver */
@@ -12,6 +13,7 @@ chan network = [0] of {mtype, /* msg# */
 mtype partnerA, partnerB;
 mtype statusA = err;
 mtype statusB = err;
+bool knows_nonceA, knows_nonceB;
 
 /* Agent (A)lice */
 active proctype Alice() {
@@ -23,30 +25,55 @@ active proctype Alice() {
   Crypt data;      /* received encrypted message                   */
   byte h;
   byte i[5];
-  i[0] = 'a'; i[1] = 'a'; i[2] = 'b'; i[3] = 'b'; i[4] = '.'; 
+   i[0] = 'a'; i[1] = 'a'; i[2] = 'b'; i[3] = 'b'; i[4] = '.'; 
 
-
-  /* Nondetermenistic algorithm for choosing partner  */
-
-q0: if 
-   :: i[h] == 'a' -> h++; goto q0
-   :: i[h] == 'b' -> h++; goto q1 
-   :: i[h] == 'b' -> h++; goto q3
+   /* Nondeterministic algorithm for choosing partner */
+   q0: if 
+   :: (h < 5 && i[h] == 'a') -> h++; goto q0
+   :: (h < 5 && i[h] == 'b') -> h++; goto q1 
+   :: (h < 5 && i[h] == 'b') -> h++; goto q3
    fi;
-q1: if
-    :: i[h] == 'b' -> h++; goto q1
-    :: i[h] == '.' -> h++; goto q2 
-    fi;
-q2: 
-    partnerA = agentB;
-    pkey     = keyB;
-q3: if
-    :: i[h] == 'b' -> h++; goto q3
-    :: i[h] == '.' -> h++; goto q4 
-    fi;
-q4: 
-    partnerA = agentI;
-    pkey     = keyI;
+
+   q1: if
+   :: (h < 5 && i[h] == 'b') -> h++; goto q1
+   :: (h < 5 && i[h] == '.') -> h++; goto q2 
+   fi;
+
+   q2: 
+   partnerA = agentB;
+   pkey     = keyB;
+
+   q3: if
+   :: (h < 5 && i[h] == 'b') -> h++; goto q3
+   :: (h < 5 && i[h] == '.') -> h++; goto q4 
+   fi;
+
+   q4: 
+   partnerA = agentI;
+   pkey     = keyI;
+//   i[0] = 'a'; i[1] = 'a'; i[2] = 'b'; i[3] = 'b'; i[4] = '.'; 
+
+
+//   /* Nondetermenistic algorithm for choosing partner  */
+//    q0: if 
+//       :: i[h] == 'a' -> h++; goto q0
+//       :: i[h] == 'b' -> h++; goto q1 
+//       :: i[h] == 'b' -> h++; goto q3
+//       fi;
+//    q1: if
+//       :: i[h] == 'b' -> h++; goto q1
+//       :: i[h] == '.' -> h++; goto q2 
+//       fi;
+//    q2: 
+//       partnerA = agentB;
+//       pkey     = keyB;
+//    q3: if
+//       :: i[h] == 'b' -> h++; goto q3
+//       :: i[h] == '.' -> h++; goto q4 
+//       fi;
+//    q4: 
+//       partnerA = agentI;
+//       pkey     = keyI;
   /* Prepare the first message */
 
   messageAB.key = pkey;
@@ -68,7 +95,7 @@ q4:
      received nonce is the one that we have sent earlier; block
      otherwise.  */
 
-  (data.key == keyA) && (data.content1 == nonceA);
+  (data.key == keyA) && (data.content1 == partnerA) && (data.content2 == nonceA);
 
   /* Obtain Bob's nonce */
 
@@ -116,9 +143,10 @@ active proctype Bob() {
      /* Obtain Alices's nonce */
 
   pnonce = data.content2;
-  messageAB.key = pkey;
-  messageAB.content1 = pnonce;
-  messageAB.content2 = nonceB;
+  messageAB.key      = pkey;       /* encrypt for Alice */
+  messageAB.content1 = agentB;     /* Bob's identity */
+  messageAB.content2 = pnonce;     /* nonceA */
+  messageAB.content3 = nonceB;     /* Bob's nonce (if needed) */
 
   network ! msg2 (partnerB, messageAB);
 
@@ -133,6 +161,9 @@ active proctype Bob() {
 active proctype Intruder() {
   mtype msg, recpt;
   Crypt data, intercepted;
+
+  knows_nonceA = false;
+  knows_nonceB = false;
   do
     :: network ? (msg, _, data) ->
        if /* perhaps store the message */
@@ -141,6 +172,16 @@ active proctype Intruder() {
 	    intercepted.content2 = data.content2;
 	 :: skip;
        fi ;
+
+       if /* check if intruder can decrypt */
+         :: intercepted.key == keyI ->
+              if
+                :: intercepted.content2 == nonceA -> knows_nonceA = true;
+                :: intercepted.content2 == nonceB -> knows_nonceB = true;
+                :: else -> skip;
+              fi
+         :: else -> skip;
+       fi;
 
     :: /* Replay or send a message */
        if /* choose message type */
@@ -156,23 +197,30 @@ active proctype Intruder() {
 	 :: data.key    = intercepted.key;
 	    data.content1  = intercepted.content1;
 	    data.content2  = intercepted.content2;
+
 	 :: if /* assemble content1 */
 	      :: data.content1 = agentA;
 	      :: data.content1 = agentB;
 	      :: data.content1 = agentI;
-	      :: data.content1 = nonceI;
+	      :: (knows_nonceA) -> data.content1 = nonceA;
+	      :: (knows_nonceB) -> data.content1 = nonceB;
 	    fi ;
 	    if /* assemble key */
 	      :: data.key = keyA;
 	      :: data.key = keyB;
 	      :: data.key = keyI;
 	    fi ;
-	    data.content2 = nonceI;
+	    if
+	      :: msg == msg3 -> data.content2 = 0;
+	      :: else -> data.content2 = nonceI;
+	    fi;
        fi ;
       network ! msg (recpt, data);
   od
 }
 
 
-
-ltl task2 { <>((statusA == ok) && (statusB == ok)) }
+// ltl task2 { <>((statusA == ok) && (statusB == ok)) }
+// ltl propAB { []( (statusA==ok && statusB==ok) -> (partnerA==agentB && partnerB==agentA) ) }
+// ltl propA { []( (statusA==ok && partnerA==agentB) -> (!knows_nonceA) ) }
+ltl propB { []( (statusB==ok && partnerB==agentA) -> (!knows_nonceB) ) }

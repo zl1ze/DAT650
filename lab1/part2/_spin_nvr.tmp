@@ -1,0 +1,9 @@
+never propB {    /* !([] ((! (((statusB==ok)) && ((partnerB==agentA)))) || (! (knows_nonceB)))) */
+T0_init:
+	do
+	:: atomic { (! (((! (((statusB==ok)) && ((partnerB==agentA)))) || (! (knows_nonceB))))) -> assert(!(! (((! (((statusB==ok)) && ((partnerB==agentA)))) || (! (knows_nonceB)))))) }
+	:: (1) -> goto T0_init
+	od;
+accept_all:
+	skip
+}
