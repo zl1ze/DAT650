@@ -12,9 +12,9 @@ Looking at the trail, the Introder is performing a type of replay attack
 where it forges a message msg1 and sends to Bob, and while Bob prepares a message. the Introdes does the same for Alice, 
 thus interrupting the three-way handshake to start a conversation. 
 Task 6.a 
-Used appcetance since we are testing for liveliness. 
+Used acceptance since we are testing for liveliness. 
 Task 6.b 
-?
+Weak fairness once again makes it so that the check will pass if it eventually executes, and it requires the procedure to be continuously executable. 
 Task 6.c 
 propAB: Since only Alice have implemented awareness for the Intruder, 
 she is aware that she is talking to the Intruder; but Bob thinks she is talking to him. 
@@ -23,3 +23,7 @@ propB: Holds, since Bob thinks he talked to Alice and the intruder does not know
 Task 7:
 The patch works because it prevents the intruder from successfully impersonating another principal and thereby blocks replay attacks that previously caused the protocol to fai
 This fixed the flaw of step 2 where there was no identification of the sender Y. 
+Task 8:
+While we can never be 100% sure that the protocol is safe, due to weak fairness as well as the possibility that there could be more 
+potential violations not accounted for in the ltl protocols, we are still pretty confident in our solution given the circumstances and
+limitations of spin, we would say we are perhaps 80-90% sure.

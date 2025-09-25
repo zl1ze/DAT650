@@ -50,29 +50,6 @@ active proctype Alice() {
    q4: 
    partnerA = agentI;
    pkey     = keyI;
-//   i[0] = 'a'; i[1] = 'a'; i[2] = 'b'; i[3] = 'b'; i[4] = '.'; 
-
-
-//   /* Nondetermenistic algorithm for choosing partner  */
-//    q0: if 
-//       :: i[h] == 'a' -> h++; goto q0
-//       :: i[h] == 'b' -> h++; goto q1 
-//       :: i[h] == 'b' -> h++; goto q3
-//       fi;
-//    q1: if
-//       :: i[h] == 'b' -> h++; goto q1
-//       :: i[h] == '.' -> h++; goto q2 
-//       fi;
-//    q2: 
-//       partnerA = agentB;
-//       pkey     = keyB;
-//    q3: if
-//       :: i[h] == 'b' -> h++; goto q3
-//       :: i[h] == '.' -> h++; goto q4 
-//       fi;
-//    q4: 
-//       partnerA = agentI;
-//       pkey     = keyI;
   /* Prepare the first message */
 
   messageAB.key = pkey;
@@ -218,7 +195,7 @@ active proctype Intruder() {
 }
 
 
-// ltl task2 { <>((statusA == ok) && (statusB == ok)) }
+ltl task2 { <>((statusA == ok) && (statusB == ok)) }
 ltl propAB { []( (statusA==ok && statusB==ok) -> (partnerA==agentB && partnerB==agentA) ) }
 ltl propA { []( (statusA==ok && partnerA==agentB) -> (!knows_nonceA) ) }
 ltl propB { []( (statusB==ok && partnerB==agentA) -> (!knows_nonceB) ) }
