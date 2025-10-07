@@ -54,3 +54,4 @@ Task 8:
 While we can never be 100% sure that the protocol is safe, due to weak fairness as well as the possibility that there could be more 
 potential violations not accounted for in the ltl protocols, we are still pretty confident in our solution given the circumstances and
 limitations of spin, we would say we are perhaps 80-90% sure.
+
