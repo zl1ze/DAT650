@@ -2,7 +2,7 @@
 #define PAN_H
 
 #define SpinVersion	"Spin Version 6.5.2 -- 6 December 2019"
-#define PanSource	"NS7.pml"
+#define PanSource	"NS6_2.pml"
 
 #define G_long	8
 #define G_int	4
@@ -140,24 +140,24 @@ typedef struct S_F_MAP {
 } S_F_MAP;
 
 #define _nstates3	11	/* propB */
-#define minseq3	122
-#define maxseq3	131
+#define minseq3	117
+#define maxseq3	126
 #define _endstate3	10
 
-#define _nstates2	62	/* Intruder */
-#define minseq2	61
-#define maxseq2	121
-#define _endstate2	61
+#define _nstates2	85	/* Intruder */
+#define minseq2	33
+#define maxseq2	116
+#define _endstate2	84
 
 #define _nstates1	13	/* Bob */
-#define minseq1	49
-#define maxseq1	60
+#define minseq1	21
+#define maxseq1	32
 #define _endstate1	12
 
-#define _nstates0	50	/* Alice */
+#define _nstates0	22	/* Alice */
 #define minseq0	0
-#define maxseq0	48
-#define _endstate0	49
+#define maxseq0	20
+#define _endstate0	21
 
 extern short src_ln3[];
 extern short src_ln2[];
@@ -169,8 +169,8 @@ extern S_F_MAP src_file1[];
 extern S_F_MAP src_file0[];
 
 #define T_ID	unsigned char
-#define _T5	61
-#define _T2	62
+#define _T5	69
+#define _T2	70
 #define WS		8 /* word size in bytes */
 #define SYNC	1
 #define ASYNC	0
@@ -194,7 +194,7 @@ struct Crypt { /* user defined type */
 typedef struct P3 { /* propB */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 4; /* proctype */
-	unsigned _p   : 7; /* state    */
+	unsigned _p   : 8; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
@@ -205,7 +205,7 @@ typedef struct P3 { /* propB */
 typedef struct P2 { /* Intruder */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 4; /* proctype */
-	unsigned _p   : 7; /* state    */
+	unsigned _p   : 8; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
@@ -220,7 +220,7 @@ typedef struct P2 { /* Intruder */
 typedef struct P1 { /* Bob */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 4; /* proctype */
-	unsigned _p   : 7; /* state    */
+	unsigned _p   : 8; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
@@ -235,12 +235,10 @@ typedef struct P1 { /* Bob */
 typedef struct P0 { /* Alice */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 4; /* proctype */
-	unsigned _p   : 7; /* state    */
+	unsigned _p   : 8; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
-	uchar h;
-	uchar i[5];
 	uchar pkey;
 	uchar pnonce;
 	struct Crypt messageAB;
@@ -251,7 +249,7 @@ typedef struct P0 { /* Alice */
 typedef struct P4 { /* np_ */
 	unsigned _pid : 8;  /* 0..255 */
 	unsigned _t   : 4; /* proctype */
-	unsigned _p   : 7; /* state    */
+	unsigned _p   : 8; /* state    */
 #ifdef HAS_PRIORITY
 	unsigned _priority : 8; /* 0..255 */
 #endif
@@ -487,7 +485,7 @@ typedef struct TRIX_v6 {
 #define _start3	6
 #define _start2	1
 #define _start1	1
-#define _start0	1
+#define _start0	5
 #ifdef NP
 	#define ACCEPT_LAB	1 /* at least 1 in np_ */
 #else
@@ -859,8 +857,8 @@ void qsend(int, int, int, int, int, int, int, int, int);
 #define GLOBAL	7
 #define BAD	8
 #define ALPHA_F	9
-#define NTRANS	63
-unsigned char Is_Recv[132];
+#define NTRANS	71
+unsigned char Is_Recv[127];
 #if defined(BFS_PAR) || NCORE>1
 	void e_critical(int);
 	void x_critical(int);

@@ -1,0 +1,20 @@
+never NoSharedForks {    /* !([] (((((held[0]<=1)) && ((held[1]<=1))) && ((held[2]<=1))) && ((held[3]<=1)))) */
+T0_init:
+	do
+	:: atomic { (! ((((((held[0]<=1)) && ((held[1]<=1))) && ((held[2]<=1))) && ((held[3]<=1))))) -> assert(!(! ((((((held[0]<=1)) && ((held[1]<=1))) && ((held[2]<=1))) && ((held[3]<=1)))))) }
+	:: (1) -> goto T0_init
+	od;
+accept_all:
+	skip
+}
+never EventuallyEats {    /* !([] (<> (((((eating[0]==0)) || ((eating[1]==0))) || ((eating[2]==0))) || ((eating[3]==0))))) */
+T0_init:
+	do
+	:: (! ((((((eating[0]==0)) || ((eating[1]==0))) || ((eating[2]==0))) || ((eating[3]==0))))) -> goto accept_S4
+	:: (1) -> goto T0_init
+	od;
+accept_S4:
+	do
+	:: (! ((((((eating[0]==0)) || ((eating[1]==0))) || ((eating[2]==0))) || ((eating[3]==0))))) -> goto accept_S4
+	od;
+}

@@ -1,8 +1,10 @@
 Task 2.a 
 We used the acceptance mode in Spin since this is a liveness property, to check that both Alice and Bob execute fully eventually
 Task 2.b 
-Weak fairness affects the answer since weak fairness ensures that they will eventually execute, even though they could be kept waiting while they are executing, or get stuck in a deadlock.
-We compiled without the -f flag, so this property should hold without weak fairness.
+Weak fairness ensures that any action that remains continuously enabled it will eventually
+be executed / scheduled. But in this model Alice and Bob  are blocking on the 
+synchronous communication, therefor no action is continuously enabled. Therefor 
+weak fairness does not change the outcome of the liveliness property. 
 Task 3.a 
 We once again used the acceptance mode in spin since the property is a liveness property.
 Task 3.b 
@@ -13,8 +15,33 @@ where it forges a message msg1 and sends to Bob, and while Bob prepares a messag
 thus interrupting the three-way handshake to start a conversation. 
 Task 6.a 
 Used acceptance since we are testing for liveliness. 
+We used acceptance cycles because we are verifying a liveness property.
 Task 6.b 
 Weak fairness once again makes it so that the check will pass if it eventually executes, and it requires the procedure to be continuously executable. 
+Weak fairness ensures that if a process remains continuously executable, it will eventually be scheduled. 
+An intuitive example would be a traffic light that is always green for a single car; weak fairness ensures 
+that the car will eventually go. A promela example would be of two processes where each one has a guard that 
+is always true ( :: true -> ), where weak fairness ensures that one process does not occupy the CPU forever 
+and lets both processes execute. 
+Strong fairness says that if a process is not permanently disabled, or in other words, enabled infinitely 
+often, the process will eventually execute. An intuitive example could again be the traffic light, but this 
+time it switches on and off infinitely often, where strong fairness ensures that it will eventually switch 
+to green (from red) and enable cars to move. A promela example would be similar to the previous, but where 
+the guards conditions flip / switch for each execution: 
+
+bool toggle = false;
+active proctype A() {
+  do
+  :: toggle -> break /*enabled when true*/
+  od
+}
+active proctype B() {
+  do
+  :: toggle = !toggle /*flips*/
+  od
+}
+
+
 Task 6.c 
 propAB: Since only Alice have implemented awareness for the Intruder, 
 she is aware that she is talking to the Intruder; but Bob thinks she is talking to him. 

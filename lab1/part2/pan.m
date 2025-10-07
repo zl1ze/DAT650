@@ -79,7 +79,7 @@
 		_m = 3; goto P999; /* 0 */
 
 		 /* PROC Intruder */
-	case 5: // STATE 1 - NS7.pml:165 - [knows_nonceA = 0] (0:0:1 - 1)
+	case 5: // STATE 1 - NS6_2.pml:91 - [knows_nonceA = 0] (0:0:1 - 1)
 		IfNotBlocked
 		reached[2][1] = 1;
 		(trpt+1)->bup.oval = ((int)now.knows_nonceA);
@@ -89,7 +89,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 6: // STATE 2 - NS7.pml:166 - [knows_nonceB = 0] (0:0:1 - 1)
+	case 6: // STATE 2 - NS6_2.pml:92 - [knows_nonceB = 0] (0:0:1 - 1)
 		IfNotBlocked
 		reached[2][2] = 1;
 		(trpt+1)->bup.oval = ((int)now.knows_nonceB);
@@ -99,7 +99,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 7: // STATE 3 - NS7.pml:168 - [network?msg,_,data.key,data.content1,data.content2,data.content3] (0:0:7 - 1)
+	case 7: // STATE 3 - NS6_2.pml:96 - [network?msg,_,data.key,data.content1,data.content2,data.content3] (0:0:7 - 1)
 		reached[2][3] = 1;
 		if (boq != now.network) continue;
 		if (q_len(now.network) == 0) continue;
@@ -180,17 +180,17 @@
 #endif
 			((P2 *)_this)->msg = 0;
 		_m = 4; goto P999; /* 0 */
-	case 8: // STATE 4 - NS7.pml:170 - [intercepted.key = data.key] (0:21:3 - 1)
+	case 8: // STATE 4 - NS6_2.pml:99 - [intercepted.key = data.key] (0:30:4 - 1)
 		IfNotBlocked
 		reached[2][4] = 1;
-		(trpt+1)->bup.ovals = grab_ints(3);
+		(trpt+1)->bup.ovals = grab_ints(4);
 		(trpt+1)->bup.ovals[0] = ((P2 *)_this)->intercepted.key;
 		((P2 *)_this)->intercepted.key = ((P2 *)_this)->data.key;
 #ifdef VAR_RANGES
 		logval("Intruder:intercepted.key", ((P2 *)_this)->intercepted.key);
 #endif
 		;
-		/* merge: intercepted.content1 = data.content1(21, 5, 21) */
+		/* merge: intercepted.content1 = data.content1(30, 5, 30) */
 		reached[2][5] = 1;
 		(trpt+1)->bup.ovals[1] = ((P2 *)_this)->intercepted.content1;
 		((P2 *)_this)->intercepted.content1 = ((P2 *)_this)->data.content1;
@@ -198,7 +198,7 @@
 		logval("Intruder:intercepted.content1", ((P2 *)_this)->intercepted.content1);
 #endif
 		;
-		/* merge: intercepted.content2 = data.content2(21, 6, 21) */
+		/* merge: intercepted.content2 = data.content2(30, 6, 30) */
 		reached[2][6] = 1;
 		(trpt+1)->bup.ovals[2] = ((P2 *)_this)->intercepted.content2;
 		((P2 *)_this)->intercepted.content2 = ((P2 *)_this)->data.content2;
@@ -206,25 +206,30 @@
 		logval("Intruder:intercepted.content2", ((P2 *)_this)->intercepted.content2);
 #endif
 		;
-		/* merge: .(goto)(0, 9, 21) */
-		reached[2][9] = 1;
+		/* merge: intercepted.content3 = data.content3(30, 7, 30) */
+		reached[2][7] = 1;
+		(trpt+1)->bup.ovals[3] = ((P2 *)_this)->intercepted.content3;
+		((P2 *)_this)->intercepted.content3 = ((P2 *)_this)->data.content3;
+#ifdef VAR_RANGES
+		logval("Intruder:intercepted.content3", ((P2 *)_this)->intercepted.content3);
+#endif
 		;
 		_m = 3; goto P999; /* 3 */
-	case 9: // STATE 10 - NS7.pml:177 - [((intercepted.key==keyI))] (0:0:0 - 1)
+	case 9: // STATE 8 - NS6_2.pml:108 - [((intercepted.key==keyI))] (0:0:0 - 1)
 		IfNotBlocked
-		reached[2][10] = 1;
+		reached[2][8] = 1;
 		if (!((((P2 *)_this)->intercepted.key==2)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 10: // STATE 11 - NS7.pml:179 - [((intercepted.content2==nonceA))] (0:0:0 - 1)
+	case 10: // STATE 9 - NS6_2.pml:110 - [((intercepted.content2==nonceA))] (0:0:0 - 1)
 		IfNotBlocked
-		reached[2][11] = 1;
+		reached[2][9] = 1;
 		if (!((((P2 *)_this)->intercepted.content2==5)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 11: // STATE 12 - NS7.pml:179 - [knows_nonceA = 1] (0:0:1 - 1)
+	case 11: // STATE 10 - NS6_2.pml:110 - [knows_nonceA = 1] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][12] = 1;
+		reached[2][10] = 1;
 		(trpt+1)->bup.oval = ((int)now.knows_nonceA);
 		now.knows_nonceA = 1;
 #ifdef VAR_RANGES
@@ -232,15 +237,15 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 12: // STATE 13 - NS7.pml:180 - [((intercepted.content2==nonceB))] (0:0:0 - 1)
+	case 12: // STATE 11 - NS6_2.pml:111 - [((intercepted.content2==nonceB))] (0:0:0 - 1)
 		IfNotBlocked
-		reached[2][13] = 1;
+		reached[2][11] = 1;
 		if (!((((P2 *)_this)->intercepted.content2==4)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 13: // STATE 14 - NS7.pml:180 - [knows_nonceB = 1] (0:0:1 - 1)
+	case 13: // STATE 12 - NS6_2.pml:111 - [knows_nonceB = 1] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][14] = 1;
+		reached[2][12] = 1;
 		(trpt+1)->bup.oval = ((int)now.knows_nonceB);
 		now.knows_nonceB = 1;
 #ifdef VAR_RANGES
@@ -248,9 +253,73 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 14: // STATE 23 - NS7.pml:188 - [msg = msg1] (0:0:1 - 1)
+	case 14: // STATE 13 - NS6_2.pml:112 - [((intercepted.content3==nonceA))] (0:0:0 - 1)
+		IfNotBlocked
+		reached[2][13] = 1;
+		if (!((((P2 *)_this)->intercepted.content3==5)))
+			continue;
+		_m = 3; goto P999; /* 0 */
+	case 15: // STATE 14 - NS6_2.pml:112 - [knows_nonceA = 1] (0:0:1 - 1)
+		IfNotBlocked
+		reached[2][14] = 1;
+		(trpt+1)->bup.oval = ((int)now.knows_nonceA);
+		now.knows_nonceA = 1;
+#ifdef VAR_RANGES
+		logval("knows_nonceA", ((int)now.knows_nonceA));
+#endif
+		;
+		_m = 3; goto P999; /* 0 */
+	case 16: // STATE 15 - NS6_2.pml:113 - [((intercepted.content3==nonceB))] (0:0:0 - 1)
+		IfNotBlocked
+		reached[2][15] = 1;
+		if (!((((P2 *)_this)->intercepted.content3==4)))
+			continue;
+		_m = 3; goto P999; /* 0 */
+	case 17: // STATE 16 - NS6_2.pml:113 - [knows_nonceB = 1] (0:0:1 - 1)
+		IfNotBlocked
+		reached[2][16] = 1;
+		(trpt+1)->bup.oval = ((int)now.knows_nonceB);
+		now.knows_nonceB = 1;
+#ifdef VAR_RANGES
+		logval("knows_nonceB", ((int)now.knows_nonceB));
+#endif
+		;
+		_m = 3; goto P999; /* 0 */
+	case 18: // STATE 22 - NS6_2.pml:119 - [((intercepted.content3==nonceB))] (0:0:0 - 1)
+		IfNotBlocked
+		reached[2][22] = 1;
+		if (!((((P2 *)_this)->intercepted.content3==4)))
+			continue;
+		_m = 3; goto P999; /* 0 */
+	case 19: // STATE 23 - NS6_2.pml:119 - [knows_nonceB = 1] (0:0:1 - 1)
 		IfNotBlocked
 		reached[2][23] = 1;
+		(trpt+1)->bup.oval = ((int)now.knows_nonceB);
+		now.knows_nonceB = 1;
+#ifdef VAR_RANGES
+		logval("knows_nonceB", ((int)now.knows_nonceB));
+#endif
+		;
+		_m = 3; goto P999; /* 0 */
+	case 20: // STATE 24 - NS6_2.pml:120 - [((intercepted.content3==nonceA))] (0:0:0 - 1)
+		IfNotBlocked
+		reached[2][24] = 1;
+		if (!((((P2 *)_this)->intercepted.content3==5)))
+			continue;
+		_m = 3; goto P999; /* 0 */
+	case 21: // STATE 25 - NS6_2.pml:120 - [knows_nonceA = 1] (0:0:1 - 1)
+		IfNotBlocked
+		reached[2][25] = 1;
+		(trpt+1)->bup.oval = ((int)now.knows_nonceA);
+		now.knows_nonceA = 1;
+#ifdef VAR_RANGES
+		logval("knows_nonceA", ((int)now.knows_nonceA));
+#endif
+		;
+		_m = 3; goto P999; /* 0 */
+	case 22: // STATE 32 - NS6_2.pml:128 - [msg = msg1] (0:0:1 - 1)
+		IfNotBlocked
+		reached[2][32] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->msg;
 		((P2 *)_this)->msg = 12;
 #ifdef VAR_RANGES
@@ -258,9 +327,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 15: // STATE 24 - NS7.pml:189 - [msg = msg2] (0:0:1 - 1)
+	case 23: // STATE 33 - NS6_2.pml:129 - [msg = msg2] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][24] = 1;
+		reached[2][33] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->msg;
 		((P2 *)_this)->msg = 11;
 #ifdef VAR_RANGES
@@ -268,9 +337,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 16: // STATE 25 - NS7.pml:190 - [msg = msg3] (0:0:1 - 1)
+	case 24: // STATE 34 - NS6_2.pml:130 - [msg = msg3] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][25] = 1;
+		reached[2][34] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->msg;
 		((P2 *)_this)->msg = 10;
 #ifdef VAR_RANGES
@@ -278,9 +347,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 17: // STATE 28 - NS7.pml:193 - [recpt = agentA] (0:0:1 - 1)
+	case 25: // STATE 37 - NS6_2.pml:135 - [recpt = agentA] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][28] = 1;
+		reached[2][37] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->recpt;
 		((P2 *)_this)->recpt = 7;
 #ifdef VAR_RANGES
@@ -288,9 +357,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 18: // STATE 29 - NS7.pml:194 - [recpt = agentB] (0:0:1 - 1)
+	case 26: // STATE 38 - NS6_2.pml:136 - [recpt = agentB] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][29] = 1;
+		reached[2][38] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->recpt;
 		((P2 *)_this)->recpt = 6;
 #ifdef VAR_RANGES
@@ -298,39 +367,47 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 19: // STATE 32 - NS7.pml:197 - [data.key = intercepted.key] (0:57:3 - 1)
+	case 27: // STATE 41 - NS6_2.pml:142 - [data.key = intercepted.key] (0:80:4 - 1)
 		IfNotBlocked
-		reached[2][32] = 1;
-		(trpt+1)->bup.ovals = grab_ints(3);
+		reached[2][41] = 1;
+		(trpt+1)->bup.ovals = grab_ints(4);
 		(trpt+1)->bup.ovals[0] = ((P2 *)_this)->data.key;
 		((P2 *)_this)->data.key = ((P2 *)_this)->intercepted.key;
 #ifdef VAR_RANGES
 		logval("Intruder:data.key", ((P2 *)_this)->data.key);
 #endif
 		;
-		/* merge: data.content1 = intercepted.content1(57, 33, 57) */
-		reached[2][33] = 1;
+		/* merge: data.content1 = intercepted.content1(80, 42, 80) */
+		reached[2][42] = 1;
 		(trpt+1)->bup.ovals[1] = ((P2 *)_this)->data.content1;
 		((P2 *)_this)->data.content1 = ((P2 *)_this)->intercepted.content1;
 #ifdef VAR_RANGES
 		logval("Intruder:data.content1", ((P2 *)_this)->data.content1);
 #endif
 		;
-		/* merge: data.content2 = intercepted.content2(57, 34, 57) */
-		reached[2][34] = 1;
+		/* merge: data.content2 = intercepted.content2(80, 43, 80) */
+		reached[2][43] = 1;
 		(trpt+1)->bup.ovals[2] = ((P2 *)_this)->data.content2;
 		((P2 *)_this)->data.content2 = ((P2 *)_this)->intercepted.content2;
 #ifdef VAR_RANGES
 		logval("Intruder:data.content2", ((P2 *)_this)->data.content2);
 #endif
 		;
-		/* merge: .(goto)(0, 56, 57) */
-		reached[2][56] = 1;
+		/* merge: data.content3 = intercepted.content3(80, 44, 80) */
+		reached[2][44] = 1;
+		(trpt+1)->bup.ovals[3] = ((P2 *)_this)->data.content3;
+		((P2 *)_this)->data.content3 = ((P2 *)_this)->intercepted.content3;
+#ifdef VAR_RANGES
+		logval("Intruder:data.content3", ((P2 *)_this)->data.content3);
+#endif
 		;
-		_m = 3; goto P999; /* 3 */
-	case 20: // STATE 35 - NS7.pml:202 - [data.content1 = agentA] (0:0:1 - 1)
+		/* merge: .(goto)(0, 79, 80) */
+		reached[2][79] = 1;
+		;
+		_m = 3; goto P999; /* 4 */
+	case 28: // STATE 45 - NS6_2.pml:149 - [data.content1 = agentA] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][35] = 1;
+		reached[2][45] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.content1;
 		((P2 *)_this)->data.content1 = 7;
 #ifdef VAR_RANGES
@@ -338,9 +415,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 21: // STATE 36 - NS7.pml:203 - [data.content1 = agentB] (0:0:1 - 1)
+	case 29: // STATE 46 - NS6_2.pml:150 - [data.content1 = agentB] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][36] = 1;
+		reached[2][46] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.content1;
 		((P2 *)_this)->data.content1 = 6;
 #ifdef VAR_RANGES
@@ -348,9 +425,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 22: // STATE 37 - NS7.pml:204 - [data.content1 = agentI] (0:0:1 - 1)
+	case 30: // STATE 47 - NS6_2.pml:151 - [data.content1 = agentI] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][37] = 1;
+		reached[2][47] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.content1;
 		((P2 *)_this)->data.content1 = 3;
 #ifdef VAR_RANGES
@@ -358,15 +435,15 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 23: // STATE 38 - NS7.pml:205 - [(knows_nonceA)] (0:0:0 - 1)
+	case 31: // STATE 48 - NS6_2.pml:152 - [(knows_nonceA)] (0:0:0 - 1)
 		IfNotBlocked
-		reached[2][38] = 1;
+		reached[2][48] = 1;
 		if (!(((int)now.knows_nonceA)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 24: // STATE 39 - NS7.pml:205 - [data.content1 = nonceA] (0:0:1 - 1)
+	case 32: // STATE 49 - NS6_2.pml:152 - [data.content1 = nonceA] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][39] = 1;
+		reached[2][49] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.content1;
 		((P2 *)_this)->data.content1 = 5;
 #ifdef VAR_RANGES
@@ -374,15 +451,15 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 25: // STATE 40 - NS7.pml:206 - [(knows_nonceB)] (0:0:0 - 1)
+	case 33: // STATE 50 - NS6_2.pml:153 - [(knows_nonceB)] (0:0:0 - 1)
 		IfNotBlocked
-		reached[2][40] = 1;
+		reached[2][50] = 1;
 		if (!(((int)now.knows_nonceB)))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 26: // STATE 41 - NS7.pml:206 - [data.content1 = nonceB] (0:0:1 - 1)
+	case 34: // STATE 51 - NS6_2.pml:153 - [data.content1 = nonceB] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][41] = 1;
+		reached[2][51] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.content1;
 		((P2 *)_this)->data.content1 = 4;
 #ifdef VAR_RANGES
@@ -390,9 +467,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 27: // STATE 44 - NS7.pml:209 - [data.key = keyA] (0:0:1 - 1)
+	case 35: // STATE 54 - NS6_2.pml:158 - [data.key = keyA] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][44] = 1;
+		reached[2][54] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.key;
 		((P2 *)_this)->data.key = 9;
 #ifdef VAR_RANGES
@@ -400,9 +477,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 28: // STATE 45 - NS7.pml:210 - [data.key = keyB] (0:0:1 - 1)
+	case 36: // STATE 55 - NS6_2.pml:159 - [data.key = keyB] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][45] = 1;
+		reached[2][55] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.key;
 		((P2 *)_this)->data.key = 8;
 #ifdef VAR_RANGES
@@ -410,9 +487,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 29: // STATE 46 - NS7.pml:211 - [data.key = keyI] (0:0:1 - 1)
+	case 37: // STATE 56 - NS6_2.pml:160 - [data.key = keyI] (0:0:1 - 1)
 		IfNotBlocked
-		reached[2][46] = 1;
+		reached[2][56] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.key;
 		((P2 *)_this)->data.key = 2;
 #ifdef VAR_RANGES
@@ -420,29 +497,42 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 30: // STATE 49 - NS7.pml:214 - [((msg==msg3))] (57:0:1 - 1)
+	case 38: // STATE 59 - NS6_2.pml:165 - [((msg==msg3))] (76:0:1 - 1)
 		IfNotBlocked
-		reached[2][49] = 1;
+		reached[2][59] = 1;
 		if (!((((P2 *)_this)->msg==10)))
 			continue;
-		/* merge: data.content2 = 0(0, 50, 57) */
-		reached[2][50] = 1;
+		/* merge: data.content2 = 0(0, 60, 76) */
+		reached[2][60] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.content2;
 		((P2 *)_this)->data.content2 = 0;
 #ifdef VAR_RANGES
 		logval("Intruder:data.content2", ((P2 *)_this)->data.content2);
 #endif
 		;
-		/* merge: .(goto)(0, 54, 57) */
-		reached[2][54] = 1;
+		/* merge: .(goto)(0, 69, 76) */
+		reached[2][69] = 1;
 		;
-		/* merge: .(goto)(0, 56, 57) */
-		reached[2][56] = 1;
-		;
-		_m = 3; goto P999; /* 3 */
-	case 31: // STATE 52 - NS7.pml:215 - [data.content2 = nonceI] (0:0:1 - 1)
+		_m = 3; goto P999; /* 2 */
+	case 39: // STATE 62 - NS6_2.pml:168 - [(knows_nonceA)] (0:0:0 - 1)
 		IfNotBlocked
-		reached[2][52] = 1;
+		reached[2][62] = 1;
+		if (!(((int)now.knows_nonceA)))
+			continue;
+		_m = 3; goto P999; /* 0 */
+	case 40: // STATE 63 - NS6_2.pml:168 - [data.content2 = nonceA] (0:0:1 - 1)
+		IfNotBlocked
+		reached[2][63] = 1;
+		(trpt+1)->bup.oval = ((P2 *)_this)->data.content2;
+		((P2 *)_this)->data.content2 = 5;
+#ifdef VAR_RANGES
+		logval("Intruder:data.content2", ((P2 *)_this)->data.content2);
+#endif
+		;
+		_m = 3; goto P999; /* 0 */
+	case 41: // STATE 65 - NS6_2.pml:169 - [data.content2 = nonceI] (0:0:1 - 1)
+		IfNotBlocked
+		reached[2][65] = 1;
 		(trpt+1)->bup.oval = ((P2 *)_this)->data.content2;
 		((P2 *)_this)->data.content2 = 1;
 #ifdef VAR_RANGES
@@ -450,9 +540,51 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 32: // STATE 57 - NS7.pml:218 - [network!msg,recpt,data.key,data.content1,data.content2,data.content3] (0:0:0 - 5)
+	case 42: // STATE 70 - NS6_2.pml:175 - [(knows_nonceB)] (0:0:0 - 1)
 		IfNotBlocked
-		reached[2][57] = 1;
+		reached[2][70] = 1;
+		if (!(((int)now.knows_nonceB)))
+			continue;
+		_m = 3; goto P999; /* 0 */
+	case 43: // STATE 71 - NS6_2.pml:175 - [data.content3 = nonceB] (0:0:1 - 1)
+		IfNotBlocked
+		reached[2][71] = 1;
+		(trpt+1)->bup.oval = ((P2 *)_this)->data.content3;
+		((P2 *)_this)->data.content3 = 4;
+#ifdef VAR_RANGES
+		logval("Intruder:data.content3", ((P2 *)_this)->data.content3);
+#endif
+		;
+		_m = 3; goto P999; /* 0 */
+	case 44: // STATE 72 - NS6_2.pml:176 - [(knows_nonceA)] (0:0:0 - 1)
+		IfNotBlocked
+		reached[2][72] = 1;
+		if (!(((int)now.knows_nonceA)))
+			continue;
+		_m = 3; goto P999; /* 0 */
+	case 45: // STATE 73 - NS6_2.pml:176 - [data.content3 = nonceA] (0:0:1 - 1)
+		IfNotBlocked
+		reached[2][73] = 1;
+		(trpt+1)->bup.oval = ((P2 *)_this)->data.content3;
+		((P2 *)_this)->data.content3 = 5;
+#ifdef VAR_RANGES
+		logval("Intruder:data.content3", ((P2 *)_this)->data.content3);
+#endif
+		;
+		_m = 3; goto P999; /* 0 */
+	case 46: // STATE 75 - NS6_2.pml:177 - [data.content3 = nonceI] (0:0:1 - 1)
+		IfNotBlocked
+		reached[2][75] = 1;
+		(trpt+1)->bup.oval = ((P2 *)_this)->data.content3;
+		((P2 *)_this)->data.content3 = 1;
+#ifdef VAR_RANGES
+		logval("Intruder:data.content3", ((P2 *)_this)->data.content3);
+#endif
+		;
+		_m = 3; goto P999; /* 0 */
+	case 47: // STATE 80 - NS6_2.pml:181 - [network!msg,recpt,data.key,data.content1,data.content2,data.content3] (0:0:0 - 6)
+		IfNotBlocked
+		reached[2][80] = 1;
 		if (q_len(now.network))
 			continue;
 #ifdef HAS_CODE
@@ -470,14 +602,14 @@
 		qsend(now.network, 0, ((P2 *)_this)->msg, ((P2 *)_this)->recpt, ((P2 *)_this)->data.key, ((P2 *)_this)->data.content1, ((P2 *)_this)->data.content2, ((P2 *)_this)->data.content3, 6);
 		{ boq = now.network; };
 		_m = 2; goto P999; /* 0 */
-	case 33: // STATE 61 - NS7.pml:220 - [-end-] (0:0:0 - 1)
+	case 48: // STATE 84 - NS6_2.pml:183 - [-end-] (0:0:0 - 1)
 		IfNotBlocked
-		reached[2][61] = 1;
+		reached[2][84] = 1;
 		if (!delproc(1, II)) continue;
 		_m = 3; goto P999; /* 0 */
 
 		 /* PROC Bob */
-	case 34: // STATE 1 - NS7.pml:130 - [partnerB = agentA] (0:0:1 - 1)
+	case 49: // STATE 1 - NS6_2.pml:63 - [partnerB = agentA] (0:0:1 - 1)
 		IfNotBlocked
 		reached[1][1] = 1;
 		(trpt+1)->bup.oval = now.partnerB;
@@ -487,7 +619,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 35: // STATE 2 - NS7.pml:131 - [pkey = keyA] (0:0:1 - 1)
+	case 50: // STATE 2 - NS6_2.pml:64 - [pkey = keyA] (0:0:1 - 1)
 		IfNotBlocked
 		reached[1][2] = 1;
 		(trpt+1)->bup.oval = ((P1 *)_this)->pkey;
@@ -497,7 +629,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 36: // STATE 3 - NS7.pml:136 - [network?msg1,agentB,data.key,data.content1,data.content2,data.content3] (0:0:4 - 1)
+	case 51: // STATE 3 - NS6_2.pml:67 - [network?msg1,agentB,data.key,data.content1,data.content2,data.content3] (0:0:4 - 1)
 		reached[1][3] = 1;
 		if (boq != now.network) continue;
 		if (q_len(now.network) == 0) continue;
@@ -566,7 +698,7 @@
 
 		};
 		_m = 4; goto P999; /* 0 */
-	case 37: // STATE 4 - NS7.pml:145 - [pnonce = data.content2] (0:9:5 - 1)
+	case 52: // STATE 4 - NS6_2.pml:70 - [pnonce = data.content2] (0:9:5 - 1)
 		IfNotBlocked
 		reached[1][4] = 1;
 		(trpt+1)->bup.ovals = grab_ints(5);
@@ -609,7 +741,7 @@
 #endif
 		;
 		_m = 3; goto P999; /* 4 */
-	case 38: // STATE 9 - NS7.pml:151 - [network!msg2,partnerB,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3] (0:0:0 - 1)
+	case 53: // STATE 9 - NS6_2.pml:78 - [network!msg2,partnerB,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3] (0:0:0 - 1)
 		IfNotBlocked
 		reached[1][9] = 1;
 		if (q_len(now.network))
@@ -629,7 +761,7 @@
 		qsend(now.network, 0, 11, now.partnerB, ((P1 *)_this)->messageAB.key, ((P1 *)_this)->messageAB.content1, ((P1 *)_this)->messageAB.content2, ((P1 *)_this)->messageAB.content3, 6);
 		{ boq = now.network; };
 		_m = 2; goto P999; /* 0 */
-	case 39: // STATE 10 - NS7.pml:154 - [network?msg3,agentB,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3] (0:0:4 - 1)
+	case 54: // STATE 10 - NS6_2.pml:81 - [network?msg3,agentB,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3] (0:0:4 - 1)
 		reached[1][10] = 1;
 		if (boq != now.network) continue;
 		if (q_len(now.network) == 0) continue;
@@ -698,7 +830,7 @@
 
 		};
 		_m = 4; goto P999; /* 0 */
-	case 40: // STATE 11 - NS7.pml:158 - [statusB = ok] (0:0:1 - 1)
+	case 55: // STATE 11 - NS6_2.pml:83 - [statusB = ok] (0:0:1 - 1)
 		IfNotBlocked
 		reached[1][11] = 1;
 		(trpt+1)->bup.oval = now.statusB;
@@ -708,144 +840,16 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 41: // STATE 12 - NS7.pml:159 - [-end-] (0:0:0 - 1)
+	case 56: // STATE 12 - NS6_2.pml:84 - [-end-] (0:0:0 - 1)
 		IfNotBlocked
 		reached[1][12] = 1;
 		if (!delproc(1, II)) continue;
 		_m = 3; goto P999; /* 0 */
 
 		 /* PROC Alice */
-	case 42: // STATE 1 - NS7.pml:28 - [i[0] = 97] (0:15:5 - 1)
+	case 57: // STATE 1 - NS6_2.pml:24 - [partnerA = agentB] (0:0:1 - 1)
 		IfNotBlocked
 		reached[0][1] = 1;
-		(trpt+1)->bup.ovals = grab_ints(5);
-		(trpt+1)->bup.ovals[0] = ((int)((P0 *)_this)->i[0]);
-		((P0 *)_this)->i[0] = 97;
-#ifdef VAR_RANGES
-		logval("Alice:i[0]", ((int)((P0 *)_this)->i[0]));
-#endif
-		;
-		/* merge: i[1] = 97(15, 2, 15) */
-		reached[0][2] = 1;
-		(trpt+1)->bup.ovals[1] = ((int)((P0 *)_this)->i[1]);
-		((P0 *)_this)->i[1] = 97;
-#ifdef VAR_RANGES
-		logval("Alice:i[1]", ((int)((P0 *)_this)->i[1]));
-#endif
-		;
-		/* merge: i[2] = 98(15, 3, 15) */
-		reached[0][3] = 1;
-		(trpt+1)->bup.ovals[2] = ((int)((P0 *)_this)->i[2]);
-		((P0 *)_this)->i[2] = 98;
-#ifdef VAR_RANGES
-		logval("Alice:i[2]", ((int)((P0 *)_this)->i[2]));
-#endif
-		;
-		/* merge: i[3] = 98(15, 4, 15) */
-		reached[0][4] = 1;
-		(trpt+1)->bup.ovals[3] = ((int)((P0 *)_this)->i[3]);
-		((P0 *)_this)->i[3] = 98;
-#ifdef VAR_RANGES
-		logval("Alice:i[3]", ((int)((P0 *)_this)->i[3]));
-#endif
-		;
-		/* merge: i[4] = 46(15, 5, 15) */
-		reached[0][5] = 1;
-		(trpt+1)->bup.ovals[4] = ((int)((P0 *)_this)->i[4]);
-		((P0 *)_this)->i[4] = 46;
-#ifdef VAR_RANGES
-		logval("Alice:i[4]", ((int)((P0 *)_this)->i[4]));
-#endif
-		;
-		_m = 3; goto P999; /* 4 */
-	case 43: // STATE 6 - NS7.pml:32 - [(((h<5)&&(i[h]==97)))] (15:0:1 - 1)
-		IfNotBlocked
-		reached[0][6] = 1;
-		if (!(((((int)((P0 *)_this)->h)<5)&&(((int)((P0 *)_this)->i[ Index(((int)((P0 *)_this)->h), 5) ])==97))))
-			continue;
-		/* merge: h = (h+1)(0, 7, 15) */
-		reached[0][7] = 1;
-		(trpt+1)->bup.oval = ((int)((P0 *)_this)->h);
-		((P0 *)_this)->h = (((int)((P0 *)_this)->h)+1);
-#ifdef VAR_RANGES
-		logval("Alice:h", ((int)((P0 *)_this)->h));
-#endif
-		;
-		/* merge: goto q0(0, 8, 15) */
-		reached[0][8] = 1;
-		;
-		_m = 3; goto P999; /* 2 */
-	case 44: // STATE 9 - NS7.pml:33 - [(((h<5)&&(i[h]==98)))] (23:0:1 - 1)
-		IfNotBlocked
-		reached[0][9] = 1;
-		if (!(((((int)((P0 *)_this)->h)<5)&&(((int)((P0 *)_this)->i[ Index(((int)((P0 *)_this)->h), 5) ])==98))))
-			continue;
-		/* merge: h = (h+1)(0, 10, 23) */
-		reached[0][10] = 1;
-		(trpt+1)->bup.oval = ((int)((P0 *)_this)->h);
-		((P0 *)_this)->h = (((int)((P0 *)_this)->h)+1);
-#ifdef VAR_RANGES
-		logval("Alice:h", ((int)((P0 *)_this)->h));
-#endif
-		;
-		/* merge: goto q1(0, 11, 23) */
-		reached[0][11] = 1;
-		;
-		_m = 3; goto P999; /* 2 */
-	case 45: // STATE 12 - NS7.pml:34 - [(((h<5)&&(i[h]==98)))] (33:0:1 - 1)
-		IfNotBlocked
-		reached[0][12] = 1;
-		if (!(((((int)((P0 *)_this)->h)<5)&&(((int)((P0 *)_this)->i[ Index(((int)((P0 *)_this)->h), 5) ])==98))))
-			continue;
-		/* merge: h = (h+1)(0, 13, 33) */
-		reached[0][13] = 1;
-		(trpt+1)->bup.oval = ((int)((P0 *)_this)->h);
-		((P0 *)_this)->h = (((int)((P0 *)_this)->h)+1);
-#ifdef VAR_RANGES
-		logval("Alice:h", ((int)((P0 *)_this)->h));
-#endif
-		;
-		/* merge: goto q3(0, 14, 33) */
-		reached[0][14] = 1;
-		;
-		_m = 3; goto P999; /* 2 */
-	case 46: // STATE 17 - NS7.pml:38 - [(((h<5)&&(i[h]==98)))] (23:0:1 - 1)
-		IfNotBlocked
-		reached[0][17] = 1;
-		if (!(((((int)((P0 *)_this)->h)<5)&&(((int)((P0 *)_this)->i[ Index(((int)((P0 *)_this)->h), 5) ])==98))))
-			continue;
-		/* merge: h = (h+1)(0, 18, 23) */
-		reached[0][18] = 1;
-		(trpt+1)->bup.oval = ((int)((P0 *)_this)->h);
-		((P0 *)_this)->h = (((int)((P0 *)_this)->h)+1);
-#ifdef VAR_RANGES
-		logval("Alice:h", ((int)((P0 *)_this)->h));
-#endif
-		;
-		/* merge: goto q1(0, 19, 23) */
-		reached[0][19] = 1;
-		;
-		_m = 3; goto P999; /* 2 */
-	case 47: // STATE 20 - NS7.pml:39 - [(((h<5)&&(i[h]==46)))] (25:0:1 - 1)
-		IfNotBlocked
-		reached[0][20] = 1;
-		if (!(((((int)((P0 *)_this)->h)<5)&&(((int)((P0 *)_this)->i[ Index(((int)((P0 *)_this)->h), 5) ])==46))))
-			continue;
-		/* merge: h = (h+1)(0, 21, 25) */
-		reached[0][21] = 1;
-		(trpt+1)->bup.oval = ((int)((P0 *)_this)->h);
-		((P0 *)_this)->h = (((int)((P0 *)_this)->h)+1);
-#ifdef VAR_RANGES
-		logval("Alice:h", ((int)((P0 *)_this)->h));
-#endif
-		;
-		/* merge: goto q2(0, 22, 25) */
-		reached[0][22] = 1;
-		;
-		_m = 3; goto P999; /* 2 */
-	case 48: // STATE 25 - NS7.pml:43 - [partnerA = agentB] (0:0:1 - 3)
-		IfNotBlocked
-		reached[0][25] = 1;
 		(trpt+1)->bup.oval = now.partnerA;
 		now.partnerA = 6;
 #ifdef VAR_RANGES
@@ -853,67 +857,55 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 49: // STATE 26 - NS7.pml:44 - [pkey = keyB] (0:0:2 - 1)
+	case 58: // STATE 2 - NS6_2.pml:24 - [pkey = keyB] (0:11:5 - 1)
 		IfNotBlocked
-		reached[0][26] = 1;
-		(trpt+1)->bup.ovals = grab_ints(2);
+		reached[0][2] = 1;
+		(trpt+1)->bup.ovals = grab_ints(5);
 		(trpt+1)->bup.ovals[0] = ((P0 *)_this)->pkey;
 		((P0 *)_this)->pkey = 8;
 #ifdef VAR_RANGES
 		logval("Alice:pkey", ((P0 *)_this)->pkey);
 #endif
 		;
-		if (TstOnly) return 1; /* TT */
-		/* dead 2: pkey */  
-#ifdef HAS_CODE
-		if (!readtrail)
-#endif
-			((P0 *)_this)->pkey = 0;
-		_m = 3; goto P999; /* 0 */
-	case 50: // STATE 27 - NS7.pml:47 - [(((h<5)&&(i[h]==98)))] (33:0:1 - 1)
-		IfNotBlocked
-		reached[0][27] = 1;
-		if (!(((((int)((P0 *)_this)->h)<5)&&(((int)((P0 *)_this)->i[ Index(((int)((P0 *)_this)->h), 5) ])==98))))
-			continue;
-		/* merge: h = (h+1)(0, 28, 33) */
-		reached[0][28] = 1;
-		(trpt+1)->bup.oval = ((int)((P0 *)_this)->h);
-		((P0 *)_this)->h = (((int)((P0 *)_this)->h)+1);
+		/* merge: .(goto)(11, 6, 11) */
+		reached[0][6] = 1;
+		;
+		/* merge: messageAB.key = pkey(11, 7, 11) */
+		reached[0][7] = 1;
+		(trpt+1)->bup.ovals[1] = ((P0 *)_this)->messageAB.key;
+		((P0 *)_this)->messageAB.key = ((P0 *)_this)->pkey;
 #ifdef VAR_RANGES
-		logval("Alice:h", ((int)((P0 *)_this)->h));
+		logval("Alice:messageAB.key", ((P0 *)_this)->messageAB.key);
 #endif
 		;
-		/* merge: goto q3(0, 29, 33) */
-		reached[0][29] = 1;
-		;
-		_m = 3; goto P999; /* 2 */
-	case 51: // STATE 30 - NS7.pml:48 - [(((h<5)&&(i[h]==46)))] (35:0:2 - 1)
-		IfNotBlocked
-		reached[0][30] = 1;
-		if (!(((((int)((P0 *)_this)->h)<5)&&(((int)((P0 *)_this)->i[ Index(((int)((P0 *)_this)->h), 5) ])==46))))
-			continue;
-		/* merge: h = (h+1)(0, 31, 35) */
-		reached[0][31] = 1;
-		(trpt+1)->bup.ovals = grab_ints(2);
-		(trpt+1)->bup.ovals[0] = ((int)((P0 *)_this)->h);
-		((P0 *)_this)->h = (((int)((P0 *)_this)->h)+1);
+		/* merge: messageAB.content1 = agentA(11, 8, 11) */
+		reached[0][8] = 1;
+		(trpt+1)->bup.ovals[2] = ((P0 *)_this)->messageAB.content1;
+		((P0 *)_this)->messageAB.content1 = 7;
 #ifdef VAR_RANGES
-		logval("Alice:h", ((int)((P0 *)_this)->h));
+		logval("Alice:messageAB.content1", ((P0 *)_this)->messageAB.content1);
 #endif
 		;
-		if (TstOnly) return 1; /* TT */
-		/* dead 2: h */  
-#ifdef HAS_CODE
-		if (!readtrail)
+		/* merge: messageAB.content2 = nonceA(11, 9, 11) */
+		reached[0][9] = 1;
+		(trpt+1)->bup.ovals[3] = ((P0 *)_this)->messageAB.content2;
+		((P0 *)_this)->messageAB.content2 = 5;
+#ifdef VAR_RANGES
+		logval("Alice:messageAB.content2", ((P0 *)_this)->messageAB.content2);
 #endif
-			((P0 *)_this)->h = 0;
-		/* merge: goto q4(0, 32, 35) */
-		reached[0][32] = 1;
 		;
-		_m = 3; goto P999; /* 2 */
-	case 52: // STATE 35 - NS7.pml:52 - [partnerA = agentI] (0:0:1 - 3)
+		/* merge: messageAB.content3 = 0(11, 10, 11) */
+		reached[0][10] = 1;
+		(trpt+1)->bup.ovals[4] = ((P0 *)_this)->messageAB.content3;
+		((P0 *)_this)->messageAB.content3 = 0;
+#ifdef VAR_RANGES
+		logval("Alice:messageAB.content3", ((P0 *)_this)->messageAB.content3);
+#endif
+		;
+		_m = 3; goto P999; /* 5 */
+	case 59: // STATE 3 - NS6_2.pml:25 - [partnerA = agentI] (0:0:1 - 1)
 		IfNotBlocked
-		reached[0][35] = 1;
+		reached[0][3] = 1;
 		(trpt+1)->bup.oval = now.partnerA;
 		now.partnerA = 3;
 #ifdef VAR_RANGES
@@ -921,44 +913,90 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 53: // STATE 36 - NS7.pml:53 - [pkey = keyI] (0:40:4 - 1)
+	case 60: // STATE 4 - NS6_2.pml:25 - [pkey = keyI] (0:11:5 - 1)
 		IfNotBlocked
-		reached[0][36] = 1;
-		(trpt+1)->bup.ovals = grab_ints(4);
+		reached[0][4] = 1;
+		(trpt+1)->bup.ovals = grab_ints(5);
 		(trpt+1)->bup.ovals[0] = ((P0 *)_this)->pkey;
 		((P0 *)_this)->pkey = 2;
 #ifdef VAR_RANGES
 		logval("Alice:pkey", ((P0 *)_this)->pkey);
 #endif
 		;
-		/* merge: messageAB.key = pkey(40, 37, 40) */
-		reached[0][37] = 1;
+		/* merge: .(goto)(11, 6, 11) */
+		reached[0][6] = 1;
+		;
+		/* merge: messageAB.key = pkey(11, 7, 11) */
+		reached[0][7] = 1;
 		(trpt+1)->bup.ovals[1] = ((P0 *)_this)->messageAB.key;
 		((P0 *)_this)->messageAB.key = ((P0 *)_this)->pkey;
 #ifdef VAR_RANGES
 		logval("Alice:messageAB.key", ((P0 *)_this)->messageAB.key);
 #endif
 		;
-		/* merge: messageAB.content1 = agentA(40, 38, 40) */
-		reached[0][38] = 1;
+		/* merge: messageAB.content1 = agentA(11, 8, 11) */
+		reached[0][8] = 1;
 		(trpt+1)->bup.ovals[2] = ((P0 *)_this)->messageAB.content1;
 		((P0 *)_this)->messageAB.content1 = 7;
 #ifdef VAR_RANGES
 		logval("Alice:messageAB.content1", ((P0 *)_this)->messageAB.content1);
 #endif
 		;
-		/* merge: messageAB.content2 = nonceA(40, 39, 40) */
-		reached[0][39] = 1;
+		/* merge: messageAB.content2 = nonceA(11, 9, 11) */
+		reached[0][9] = 1;
 		(trpt+1)->bup.ovals[3] = ((P0 *)_this)->messageAB.content2;
 		((P0 *)_this)->messageAB.content2 = 5;
 #ifdef VAR_RANGES
 		logval("Alice:messageAB.content2", ((P0 *)_this)->messageAB.content2);
 #endif
 		;
-		_m = 3; goto P999; /* 3 */
-	case 54: // STATE 40 - NS7.pml:85 - [network!msg1,partnerA,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3] (0:0:0 - 1)
+		/* merge: messageAB.content3 = 0(11, 10, 11) */
+		reached[0][10] = 1;
+		(trpt+1)->bup.ovals[4] = ((P0 *)_this)->messageAB.content3;
+		((P0 *)_this)->messageAB.content3 = 0;
+#ifdef VAR_RANGES
+		logval("Alice:messageAB.content3", ((P0 *)_this)->messageAB.content3);
+#endif
+		;
+		_m = 3; goto P999; /* 5 */
+	case 61: // STATE 7 - NS6_2.pml:29 - [messageAB.key = pkey] (0:11:4 - 3)
 		IfNotBlocked
-		reached[0][40] = 1;
+		reached[0][7] = 1;
+		(trpt+1)->bup.ovals = grab_ints(4);
+		(trpt+1)->bup.ovals[0] = ((P0 *)_this)->messageAB.key;
+		((P0 *)_this)->messageAB.key = ((P0 *)_this)->pkey;
+#ifdef VAR_RANGES
+		logval("Alice:messageAB.key", ((P0 *)_this)->messageAB.key);
+#endif
+		;
+		/* merge: messageAB.content1 = agentA(11, 8, 11) */
+		reached[0][8] = 1;
+		(trpt+1)->bup.ovals[1] = ((P0 *)_this)->messageAB.content1;
+		((P0 *)_this)->messageAB.content1 = 7;
+#ifdef VAR_RANGES
+		logval("Alice:messageAB.content1", ((P0 *)_this)->messageAB.content1);
+#endif
+		;
+		/* merge: messageAB.content2 = nonceA(11, 9, 11) */
+		reached[0][9] = 1;
+		(trpt+1)->bup.ovals[2] = ((P0 *)_this)->messageAB.content2;
+		((P0 *)_this)->messageAB.content2 = 5;
+#ifdef VAR_RANGES
+		logval("Alice:messageAB.content2", ((P0 *)_this)->messageAB.content2);
+#endif
+		;
+		/* merge: messageAB.content3 = 0(11, 10, 11) */
+		reached[0][10] = 1;
+		(trpt+1)->bup.ovals[3] = ((P0 *)_this)->messageAB.content3;
+		((P0 *)_this)->messageAB.content3 = 0;
+#ifdef VAR_RANGES
+		logval("Alice:messageAB.content3", ((P0 *)_this)->messageAB.content3);
+#endif
+		;
+		_m = 3; goto P999; /* 3 */
+	case 62: // STATE 11 - NS6_2.pml:34 - [network!msg1,partnerA,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3] (0:0:0 - 1)
+		IfNotBlocked
+		reached[0][11] = 1;
 		if (q_len(now.network))
 			continue;
 #ifdef HAS_CODE
@@ -976,8 +1014,8 @@
 		qsend(now.network, 0, 12, now.partnerA, ((P0 *)_this)->messageAB.key, ((P0 *)_this)->messageAB.content1, ((P0 *)_this)->messageAB.content2, ((P0 *)_this)->messageAB.content3, 6);
 		{ boq = now.network; };
 		_m = 2; goto P999; /* 0 */
-	case 55: // STATE 41 - NS7.pml:92 - [network?msg2,agentA,data.key,data.content1,data.content2,data.content3] (0:0:4 - 1)
-		reached[0][41] = 1;
+	case 63: // STATE 12 - NS6_2.pml:37 - [network?msg2,agentA,data.key,data.content1,data.content2,data.content3] (0:0:4 - 1)
+		reached[0][12] = 1;
 		if (boq != now.network) continue;
 		if (q_len(now.network) == 0) continue;
 
@@ -1045,50 +1083,58 @@
 
 		};
 		_m = 4; goto P999; /* 0 */
-	case 56: // STATE 42 - NS7.pml:98 - [((((data.key==keyA)&&(data.content1==partnerA))&&(data.content2==nonceA)))] (0:0:0 - 1)
+	case 64: // STATE 13 - NS6_2.pml:40 - [((((data.key==keyA)&&(data.content1==partnerA))&&(data.content2==nonceA)))] (0:0:0 - 1)
 		IfNotBlocked
-		reached[0][42] = 1;
+		reached[0][13] = 1;
 		if (!((((((P0 *)_this)->data.key==9)&&(((P0 *)_this)->data.content1==now.partnerA))&&(((P0 *)_this)->data.content2==5))))
 			continue;
 		_m = 3; goto P999; /* 0 */
-	case 57: // STATE 43 - NS7.pml:102 - [pnonce = data.content2] (0:47:4 - 1)
+	case 65: // STATE 14 - NS6_2.pml:43 - [pnonce = data.content3] (0:19:5 - 1)
 		IfNotBlocked
-		reached[0][43] = 1;
-		(trpt+1)->bup.ovals = grab_ints(4);
+		reached[0][14] = 1;
+		(trpt+1)->bup.ovals = grab_ints(5);
 		(trpt+1)->bup.ovals[0] = ((P0 *)_this)->pnonce;
-		((P0 *)_this)->pnonce = ((P0 *)_this)->data.content2;
+		((P0 *)_this)->pnonce = ((P0 *)_this)->data.content3;
 #ifdef VAR_RANGES
 		logval("Alice:pnonce", ((P0 *)_this)->pnonce);
 #endif
 		;
-		/* merge: messageAB.key = pkey(47, 44, 47) */
-		reached[0][44] = 1;
+		/* merge: messageAB.key = pkey(19, 15, 19) */
+		reached[0][15] = 1;
 		(trpt+1)->bup.ovals[1] = ((P0 *)_this)->messageAB.key;
 		((P0 *)_this)->messageAB.key = ((P0 *)_this)->pkey;
 #ifdef VAR_RANGES
 		logval("Alice:messageAB.key", ((P0 *)_this)->messageAB.key);
 #endif
 		;
-		/* merge: messageAB.content1 = pnonce(47, 45, 47) */
-		reached[0][45] = 1;
+		/* merge: messageAB.content1 = pnonce(19, 16, 19) */
+		reached[0][16] = 1;
 		(trpt+1)->bup.ovals[2] = ((P0 *)_this)->messageAB.content1;
 		((P0 *)_this)->messageAB.content1 = ((P0 *)_this)->pnonce;
 #ifdef VAR_RANGES
 		logval("Alice:messageAB.content1", ((P0 *)_this)->messageAB.content1);
 #endif
 		;
-		/* merge: messageAB.content2 = 0(47, 46, 47) */
-		reached[0][46] = 1;
+		/* merge: messageAB.content2 = 0(19, 17, 19) */
+		reached[0][17] = 1;
 		(trpt+1)->bup.ovals[3] = ((P0 *)_this)->messageAB.content2;
 		((P0 *)_this)->messageAB.content2 = 0;
 #ifdef VAR_RANGES
 		logval("Alice:messageAB.content2", ((P0 *)_this)->messageAB.content2);
 #endif
 		;
-		_m = 3; goto P999; /* 3 */
-	case 58: // STATE 47 - NS7.pml:112 - [network!msg3,partnerA,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3] (0:0:0 - 1)
+		/* merge: messageAB.content3 = 0(19, 18, 19) */
+		reached[0][18] = 1;
+		(trpt+1)->bup.ovals[4] = ((P0 *)_this)->messageAB.content3;
+		((P0 *)_this)->messageAB.content3 = 0;
+#ifdef VAR_RANGES
+		logval("Alice:messageAB.content3", ((P0 *)_this)->messageAB.content3);
+#endif
+		;
+		_m = 3; goto P999; /* 4 */
+	case 66: // STATE 19 - NS6_2.pml:51 - [network!msg3,partnerA,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3] (0:0:0 - 1)
 		IfNotBlocked
-		reached[0][47] = 1;
+		reached[0][19] = 1;
 		if (q_len(now.network))
 			continue;
 #ifdef HAS_CODE
@@ -1106,9 +1152,9 @@
 		qsend(now.network, 0, 10, now.partnerA, ((P0 *)_this)->messageAB.key, ((P0 *)_this)->messageAB.content1, ((P0 *)_this)->messageAB.content2, ((P0 *)_this)->messageAB.content3, 6);
 		{ boq = now.network; };
 		_m = 2; goto P999; /* 0 */
-	case 59: // STATE 48 - NS7.pml:116 - [statusA = ok] (0:0:1 - 1)
+	case 67: // STATE 20 - NS6_2.pml:53 - [statusA = ok] (0:0:1 - 1)
 		IfNotBlocked
-		reached[0][48] = 1;
+		reached[0][20] = 1;
 		(trpt+1)->bup.oval = statusA;
 		statusA = 14;
 #ifdef VAR_RANGES
@@ -1116,9 +1162,9 @@
 #endif
 		;
 		_m = 3; goto P999; /* 0 */
-	case 60: // STATE 49 - NS7.pml:117 - [-end-] (0:0:0 - 1)
+	case 68: // STATE 21 - NS6_2.pml:54 - [-end-] (0:0:0 - 1)
 		IfNotBlocked
-		reached[0][49] = 1;
+		reached[0][21] = 1;
 		if (!delproc(1, II)) continue;
 		_m = 3; goto P999; /* 0 */
 	case  _T5:	/* np_ */

@@ -4,6 +4,7 @@ chan fork[N]= [1] of { bit }; // Channel with array of forks
 
 int held[N]
 int eating[N]
+
 proctype phil(int id) {
   bit inuse; // bit to set that fork is used
   do
