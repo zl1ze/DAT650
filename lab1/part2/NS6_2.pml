@@ -166,6 +166,7 @@ active proctype Intruder() {
         :: else ->
             if
             :: (knows_nonceA) -> data.content2 = nonceA
+            :: (knows_nonceB) -> data.content2 = nonceB
             :: else -> data.content2 = nonceI
             fi
         fi;

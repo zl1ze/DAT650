@@ -28,197 +28,185 @@ settable(void)
 
 	trans[3] = (Trans **) emalloc(11*sizeof(Trans *));
 
-	trans[3][7]	= settr(123,0,6,1,0,".(goto)", 0, 2, 0);
-	T = trans[3][6] = settr(122,0,0,0,0,"DO", 0, 2, 0);
-	T = T->nxt	= settr(122,0,3,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(122,0,4,0,0,"DO", 0, 2, 0);
-	T = trans[ 3][3] = settr(119,2,0,0,0,"ATOMIC", 1, 2, 0);
-	T->nxt	= settr(119,2,1,0,0,"ATOMIC", 1, 2, 0);
-	trans[3][1]	= settr(117,0,6,3,3,"(!((!(((statusB==ok)&&(partnerB==agentA)))||!(knows_nonceB))))", 1, 2, 0); /* m: 2 -> 6,0 */
+	trans[3][7]	= settr(113,0,6,1,0,".(goto)", 0, 2, 0);
+	T = trans[3][6] = settr(112,0,0,0,0,"DO", 0, 2, 0);
+	T = T->nxt	= settr(112,0,3,0,0,"DO", 0, 2, 0);
+	    T->nxt	= settr(112,0,4,0,0,"DO", 0, 2, 0);
+	T = trans[ 3][3] = settr(109,2,0,0,0,"ATOMIC", 1, 2, 0);
+	T->nxt	= settr(109,2,1,0,0,"ATOMIC", 1, 2, 0);
+	trans[3][1]	= settr(107,0,6,3,3,"(!((!(((statusB==ok)&&(partnerB==agentA)))||!(knows_nonceB))))", 1, 2, 0); /* m: 2 -> 6,0 */
 	reached3[2] = 1;
 	trans[3][2]	= settr(0,0,0,0,0,"assert(!(!((!(((statusB==ok)&&(partnerB==agentA)))||!(knows_nonceB)))))",0,0,0);
-	trans[3][4]	= settr(120,0,6,1,0,"(1)", 0, 2, 0);
-	trans[3][5]	= settr(121,0,6,1,0,"goto T0_init", 0, 2, 0);
-	trans[3][8]	= settr(124,0,9,1,0,"break", 0, 2, 0);
-	trans[3][9]	= settr(125,0,10,1,0,"(1)", 0, 2, 0);
-	trans[3][10]	= settr(126,0,0,4,4,"-end-", 0, 3500, 0);
+	trans[3][4]	= settr(110,0,6,1,0,"(1)", 0, 2, 0);
+	trans[3][5]	= settr(111,0,6,1,0,"goto T0_init", 0, 2, 0);
+	trans[3][8]	= settr(114,0,9,1,0,"break", 0, 2, 0);
+	trans[3][9]	= settr(115,0,10,1,0,"(1)", 0, 2, 0);
+	trans[3][10]	= settr(116,0,0,4,4,"-end-", 0, 3500, 0);
 
 	/* proctype 2: Intruder */
 
-	trans[2] = (Trans **) emalloc(85*sizeof(Trans *));
+	trans[2] = (Trans **) emalloc(77*sizeof(Trans *));
 
-	trans[2][1]	= settr(33,0,2,5,5,"knows_nonceA = 0", 1, 2, 0);
-	trans[2][2]	= settr(34,0,81,6,6,"knows_nonceB = 0", 1, 2, 0);
-	trans[2][82]	= settr(114,0,81,1,0,".(goto)", 0, 2, 0);
-	T = trans[2][81] = settr(113,0,0,0,0,"DO", 0, 2, 0);
-	T = T->nxt	= settr(113,0,3,0,0,"DO", 0, 2, 0);
-	    T->nxt	= settr(113,0,35,0,0,"DO", 0, 2, 0);
-	trans[2][3]	= settr(35,0,4,7,7,"network?msg,_,data.key,data.content1,data.content2,data.content3", 1, 503, 0);
-	trans[2][4]	= settr(36,0,30,8,8,"intercepted.key = data.key", 0, 2, 0); /* m: 5 -> 0,30 */
+	trans[2][1]	= settr(31,0,2,5,5,"knows_nonceA = 0", 1, 2, 0);
+	trans[2][2]	= settr(32,0,73,6,6,"knows_nonceB = 0", 1, 2, 0);
+	trans[2][74]	= settr(104,0,73,1,0,".(goto)", 0, 2, 0);
+	T = trans[2][73] = settr(103,0,0,0,0,"DO", 0, 2, 0);
+	T = T->nxt	= settr(103,0,3,0,0,"DO", 0, 2, 0);
+	    T->nxt	= settr(103,0,26,0,0,"DO", 0, 2, 0);
+	trans[2][3]	= settr(33,0,8,7,7,"network?msg,_,data.key,data.content1,data.content2,data.content3", 1, 503, 0);
+	T = trans[2][8] = settr(38,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(38,0,4,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(38,0,7,0,0,"IF", 0, 2, 0);
+	trans[2][4]	= settr(34,0,21,8,8,"intercepted.key = data.key", 0, 2, 0); /* m: 5 -> 0,21 */
 	reached2[5] = 1;
 	trans[2][5]	= settr(0,0,0,0,0,"intercepted.content1 = data.content1",0,0,0);
 	trans[2][6]	= settr(0,0,0,0,0,"intercepted.content2 = data.content2",0,0,0);
-	trans[2][7]	= settr(0,0,0,0,0,"intercepted.content3 = data.content3",0,0,0);
-	T = trans[2][30] = settr(62,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(62,0,8,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(62,0,21,0,0,"IF", 0, 2, 0);
-	trans[2][8]	= settr(40,0,19,9,0,"((intercepted.key==keyI))", 0, 2, 0);
-	T = trans[2][19] = settr(51,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(51,0,9,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(51,0,11,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(51,0,13,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(51,0,15,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(51,0,17,0,0,"IF", 0, 2, 0);
-	trans[2][9]	= settr(41,0,10,10,0,"((intercepted.content2==nonceA))", 0, 2, 0);
-	trans[2][10]	= settr(42,0,81,11,11,"knows_nonceA = 1", 1, 2, 0);
-	trans[2][20]	= settr(52,0,81,1,0,".(goto)", 0, 2, 0);
-	trans[2][11]	= settr(43,0,12,12,0,"((intercepted.content2==nonceB))", 0, 2, 0);
-	trans[2][12]	= settr(44,0,81,13,13,"knows_nonceB = 1", 1, 2, 0);
-	trans[2][13]	= settr(45,0,14,14,0,"((intercepted.content3==nonceA))", 0, 2, 0);
-	trans[2][14]	= settr(46,0,81,15,15,"knows_nonceA = 1", 1, 2, 0);
-	trans[2][15]	= settr(47,0,16,16,0,"((intercepted.content3==nonceB))", 0, 2, 0);
-	trans[2][16]	= settr(48,0,81,17,17,"knows_nonceB = 1", 1, 2, 0);
-	trans[2][17]	= settr(49,0,18,2,0,"else", 0, 2, 0);
-	trans[2][18]	= settr(50,0,81,1,0,"(1)", 0, 2, 0);
-	trans[2][31]	= settr(63,0,81,1,0,".(goto)", 0, 2, 0);
-	trans[2][21]	= settr(53,0,28,2,0,"else", 0, 2, 0);
-	T = trans[2][28] = settr(60,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(60,0,22,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(60,0,24,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(60,0,26,0,0,"IF", 0, 2, 0);
-	trans[2][22]	= settr(54,0,23,18,0,"((intercepted.content3==nonceB))", 0, 2, 0);
-	trans[2][23]	= settr(55,0,81,19,19,"knows_nonceB = 1", 1, 2, 0);
-	trans[2][29]	= settr(61,0,81,1,0,".(goto)", 0, 2, 0);
-	trans[2][24]	= settr(56,0,25,20,0,"((intercepted.content3==nonceA))", 0, 2, 0);
-	trans[2][25]	= settr(57,0,81,21,21,"knows_nonceA = 1", 1, 2, 0);
-	trans[2][26]	= settr(58,0,27,2,0,"else", 0, 2, 0);
-	trans[2][27]	= settr(59,0,81,1,0,"(1)", 0, 2, 0);
-	T = trans[2][35] = settr(67,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(67,0,32,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(67,0,33,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(67,0,34,0,0,"IF", 0, 2, 0);
-	trans[2][32]	= settr(64,0,39,22,22,"msg = msg1", 0, 2, 0);
-	trans[2][36]	= settr(68,0,39,1,0,".(goto)", 0, 2, 0);
-	trans[2][33]	= settr(65,0,39,23,23,"msg = msg2", 0, 2, 0);
-	trans[2][34]	= settr(66,0,39,24,24,"msg = msg3", 0, 2, 0);
-	T = trans[2][39] = settr(71,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(71,0,37,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(71,0,38,0,0,"IF", 0, 2, 0);
-	trans[2][37]	= settr(69,0,78,25,25,"recpt = agentA", 0, 2, 0);
-	trans[2][40]	= settr(72,0,78,1,0,".(goto)", 0, 2, 0);
-	trans[2][38]	= settr(70,0,78,26,26,"recpt = agentB", 0, 2, 0);
-	T = trans[2][78] = settr(110,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(110,0,41,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(110,0,52,0,0,"IF", 0, 2, 0);
-	trans[2][41]	= settr(73,0,80,27,27,"data.key = intercepted.key", 0, 2, 0); /* m: 42 -> 0,80 */
-	reached2[42] = 1;
-	trans[2][42]	= settr(0,0,0,0,0,"data.content1 = intercepted.content1",0,0,0);
-	trans[2][43]	= settr(0,0,0,0,0,"data.content2 = intercepted.content2",0,0,0);
-	trans[2][44]	= settr(0,0,0,0,0,"data.content3 = intercepted.content3",0,0,0);
-	trans[2][79]	= settr(111,0,80,1,0,".(goto)", 0, 2, 0);
-	T = trans[2][52] = settr(84,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(84,0,45,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(84,0,46,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(84,0,47,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(84,0,48,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(84,0,50,0,0,"IF", 0, 2, 0);
-	trans[2][45]	= settr(77,0,57,28,28,"data.content1 = agentA", 0, 2, 0);
-	trans[2][53]	= settr(85,0,57,1,0,".(goto)", 0, 2, 0);
-	trans[2][46]	= settr(78,0,57,29,29,"data.content1 = agentB", 0, 2, 0);
-	trans[2][47]	= settr(79,0,57,30,30,"data.content1 = agentI", 0, 2, 0);
-	trans[2][48]	= settr(80,0,49,31,0,"(knows_nonceA)", 1, 2, 0);
-	trans[2][49]	= settr(81,0,57,32,32,"data.content1 = nonceA", 0, 2, 0);
-	trans[2][50]	= settr(82,0,51,33,0,"(knows_nonceB)", 1, 2, 0);
-	trans[2][51]	= settr(83,0,57,34,34,"data.content1 = nonceB", 0, 2, 0);
-	T = trans[2][57] = settr(89,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(89,0,54,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(89,0,55,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(89,0,56,0,0,"IF", 0, 2, 0);
-	trans[2][54]	= settr(86,0,68,35,35,"data.key = keyA", 0, 2, 0);
-	trans[2][58]	= settr(90,0,68,1,0,".(goto)", 0, 2, 0);
-	trans[2][55]	= settr(87,0,68,36,36,"data.key = keyB", 0, 2, 0);
-	trans[2][56]	= settr(88,0,68,37,37,"data.key = keyI", 0, 2, 0);
-	T = trans[2][68] = settr(100,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(100,0,59,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(100,0,61,0,0,"IF", 0, 2, 0);
-	trans[2][59]	= settr(91,0,76,38,38,"((msg==msg3))", 0, 2, 0); /* m: 60 -> 76,0 */
-	reached2[60] = 1;
-	trans[2][60]	= settr(0,0,0,0,0,"data.content2 = 0",0,0,0);
-	trans[2][69]	= settr(101,0,76,1,0,".(goto)", 0, 2, 0);
-	trans[2][61]	= settr(93,0,66,2,0,"else", 0, 2, 0);
-	T = trans[2][66] = settr(98,0,0,0,0,"IF", 0, 2, 0);
+	trans[2][9]	= settr(39,0,21,1,0,".(goto)", 0, 2, 0);
+	trans[2][7]	= settr(37,0,21,1,0,"(1)", 0, 2, 0);
+	T = trans[2][21] = settr(51,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(51,0,10,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(51,0,19,0,0,"IF", 0, 2, 0);
+	trans[2][10]	= settr(40,0,17,9,0,"((intercepted.key==keyI))", 0, 2, 0);
+	T = trans[2][17] = settr(47,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(47,0,11,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(47,0,13,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(47,0,15,0,0,"IF", 0, 2, 0);
+	trans[2][11]	= settr(41,0,12,10,0,"((intercepted.content2==nonceA))", 0, 2, 0);
+	trans[2][12]	= settr(42,0,73,11,11,"knows_nonceA = 1", 1, 2, 0);
+	trans[2][18]	= settr(48,0,73,1,0,".(goto)", 0, 2, 0);
+	trans[2][13]	= settr(43,0,14,12,0,"((intercepted.content2==nonceB))", 0, 2, 0);
+	trans[2][14]	= settr(44,0,73,13,13,"knows_nonceB = 1", 1, 2, 0);
+	trans[2][15]	= settr(45,0,16,2,0,"else", 0, 2, 0);
+	trans[2][16]	= settr(46,0,73,1,0,"(1)", 0, 2, 0);
+	trans[2][22]	= settr(52,0,73,1,0,".(goto)", 0, 2, 0);
+	trans[2][19]	= settr(49,0,20,2,0,"else", 0, 2, 0);
+	trans[2][20]	= settr(50,0,73,1,0,"(1)", 0, 2, 0);
+	T = trans[2][26] = settr(56,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(56,0,23,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(56,0,24,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(56,0,25,0,0,"IF", 0, 2, 0);
+	trans[2][23]	= settr(53,0,30,14,14,"msg = msg1", 0, 2, 0);
+	trans[2][27]	= settr(57,0,30,1,0,".(goto)", 0, 2, 0);
+	trans[2][24]	= settr(54,0,30,15,15,"msg = msg2", 0, 2, 0);
+	trans[2][25]	= settr(55,0,30,16,16,"msg = msg3", 0, 2, 0);
+	T = trans[2][30] = settr(60,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(60,0,28,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(60,0,29,0,0,"IF", 0, 2, 0);
+	trans[2][28]	= settr(58,0,70,17,17,"recpt = agentA", 0, 2, 0);
+	trans[2][31]	= settr(61,0,70,1,0,".(goto)", 0, 2, 0);
+	trans[2][29]	= settr(59,0,70,18,18,"recpt = agentB", 0, 2, 0);
+	T = trans[2][70] = settr(100,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(100,0,32,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(100,0,42,0,0,"IF", 0, 2, 0);
+	trans[2][32]	= settr(62,0,72,19,19,"data.key = intercepted.key", 0, 2, 0); /* m: 33 -> 0,72 */
+	reached2[33] = 1;
+	trans[2][33]	= settr(0,0,0,0,0,"data.content1 = intercepted.content1",0,0,0);
+	trans[2][34]	= settr(0,0,0,0,0,"data.content2 = intercepted.content2",0,0,0);
+	trans[2][71]	= settr(101,0,72,1,0,".(goto)", 0, 2, 0);
+	T = trans[2][42] = settr(72,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(72,0,35,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(72,0,36,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(72,0,37,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(72,0,38,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(72,0,40,0,0,"IF", 0, 2, 0);
+	trans[2][35]	= settr(65,0,47,20,20,"data.content1 = agentA", 0, 2, 0);
+	trans[2][43]	= settr(73,0,47,1,0,".(goto)", 0, 2, 0);
+	trans[2][36]	= settr(66,0,47,21,21,"data.content1 = agentB", 0, 2, 0);
+	trans[2][37]	= settr(67,0,47,22,22,"data.content1 = agentI", 0, 2, 0);
+	trans[2][38]	= settr(68,0,39,23,0,"(knows_nonceA)", 1, 2, 0);
+	trans[2][39]	= settr(69,0,47,24,24,"data.content1 = nonceA", 0, 2, 0);
+	trans[2][40]	= settr(70,0,41,25,0,"(knows_nonceB)", 1, 2, 0);
+	trans[2][41]	= settr(71,0,47,26,26,"data.content1 = nonceB", 0, 2, 0);
+	T = trans[2][47] = settr(77,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(77,0,44,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(77,0,45,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(77,0,46,0,0,"IF", 0, 2, 0);
+	trans[2][44]	= settr(74,0,60,27,27,"data.key = keyA", 0, 2, 0);
+	trans[2][48]	= settr(78,0,60,1,0,".(goto)", 0, 2, 0);
+	trans[2][45]	= settr(75,0,60,28,28,"data.key = keyB", 0, 2, 0);
+	trans[2][46]	= settr(76,0,60,29,29,"data.key = keyI", 0, 2, 0);
+	T = trans[2][60] = settr(90,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(90,0,49,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(90,0,51,0,0,"IF", 0, 2, 0);
+	trans[2][49]	= settr(79,0,68,30,30,"((msg==msg3))", 0, 2, 0); /* m: 50 -> 68,0 */
+	reached2[50] = 1;
+	trans[2][50]	= settr(0,0,0,0,0,"data.content2 = 0",0,0,0);
+	trans[2][61]	= settr(91,0,68,1,0,".(goto)", 0, 2, 0);
+	trans[2][51]	= settr(81,0,58,2,0,"else", 0, 2, 0);
+	T = trans[2][58] = settr(88,0,0,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(88,0,52,0,0,"IF", 0, 2, 0);
+	T = T->nxt	= settr(88,0,54,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(88,0,56,0,0,"IF", 0, 2, 0);
+	trans[2][52]	= settr(82,0,53,31,0,"(knows_nonceA)", 1, 2, 0);
+	trans[2][53]	= settr(83,0,68,32,32,"data.content2 = nonceA", 0, 2, 0);
+	trans[2][59]	= settr(89,0,68,1,0,".(goto)", 0, 2, 0);
+	trans[2][54]	= settr(84,0,55,33,0,"(knows_nonceB)", 1, 2, 0);
+	trans[2][55]	= settr(85,0,68,34,34,"data.content2 = nonceB", 0, 2, 0);
+	trans[2][56]	= settr(86,0,57,2,0,"else", 0, 2, 0);
+	trans[2][57]	= settr(87,0,68,35,35,"data.content2 = nonceI", 0, 2, 0);
+	T = trans[2][68] = settr(98,0,0,0,0,"IF", 0, 2, 0);
 	T = T->nxt	= settr(98,0,62,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(98,0,64,0,0,"IF", 0, 2, 0);
-	trans[2][62]	= settr(94,0,63,39,0,"(knows_nonceA)", 1, 2, 0);
-	trans[2][63]	= settr(95,0,76,40,40,"data.content2 = nonceA", 0, 2, 0);
-	trans[2][67]	= settr(99,0,76,1,0,".(goto)", 0, 2, 0);
-	trans[2][64]	= settr(96,0,65,2,0,"else", 0, 2, 0);
-	trans[2][65]	= settr(97,0,76,41,41,"data.content2 = nonceI", 0, 2, 0);
-	T = trans[2][76] = settr(108,0,0,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(108,0,70,0,0,"IF", 0, 2, 0);
-	T = T->nxt	= settr(108,0,72,0,0,"IF", 0, 2, 0);
-	    T->nxt	= settr(108,0,74,0,0,"IF", 0, 2, 0);
-	trans[2][70]	= settr(102,0,71,42,0,"(knows_nonceB)", 1, 2, 0);
-	trans[2][71]	= settr(103,0,80,43,43,"data.content3 = nonceB", 0, 2, 0);
-	trans[2][77]	= settr(109,0,80,1,0,".(goto)", 0, 2, 0);
-	trans[2][72]	= settr(104,0,73,44,0,"(knows_nonceA)", 1, 2, 0);
-	trans[2][73]	= settr(105,0,80,45,45,"data.content3 = nonceA", 0, 2, 0);
-	trans[2][74]	= settr(106,0,75,2,0,"else", 0, 2, 0);
-	trans[2][75]	= settr(107,0,80,46,46,"data.content3 = nonceI", 0, 2, 0);
-	trans[2][80]	= settr(112,0,81,47,47,"network!msg,recpt,data.key,data.content1,data.content2,data.content3", 1, 3, 0);
-	trans[2][83]	= settr(115,0,84,1,0,"break", 0, 2, 0);
-	trans[2][84]	= settr(116,0,0,48,48,"-end-", 0, 3500, 0);
+	T = T->nxt	= settr(98,0,64,0,0,"IF", 0, 2, 0);
+	    T->nxt	= settr(98,0,66,0,0,"IF", 0, 2, 0);
+	trans[2][62]	= settr(92,0,63,36,0,"(knows_nonceB)", 1, 2, 0);
+	trans[2][63]	= settr(93,0,72,37,37,"data.content3 = nonceB", 0, 2, 0);
+	trans[2][69]	= settr(99,0,72,1,0,".(goto)", 0, 2, 0);
+	trans[2][64]	= settr(94,0,65,38,0,"(knows_nonceA)", 1, 2, 0);
+	trans[2][65]	= settr(95,0,72,39,39,"data.content3 = nonceA", 0, 2, 0);
+	trans[2][66]	= settr(96,0,67,2,0,"else", 0, 2, 0);
+	trans[2][67]	= settr(97,0,72,40,40,"data.content3 = nonceI", 0, 2, 0);
+	trans[2][72]	= settr(102,0,73,41,41,"network!msg,recpt,data.key,data.content1,data.content2,data.content3", 1, 3, 0);
+	trans[2][75]	= settr(105,0,76,1,0,"break", 0, 2, 0);
+	trans[2][76]	= settr(106,0,0,42,42,"-end-", 0, 3500, 0);
 
 	/* proctype 1: Bob */
 
 	trans[1] = (Trans **) emalloc(13*sizeof(Trans *));
 
-	trans[1][1]	= settr(21,0,2,49,49,"partnerB = agentA", 1, 2, 0);
-	trans[1][2]	= settr(22,0,3,50,50,"pkey = keyA", 0, 2, 0);
-	trans[1][3]	= settr(23,0,4,51,51,"network?msg1,agentB,data.key,data.content1,data.content2,data.content3", 1, 503, 0);
-	trans[1][4]	= settr(24,0,9,52,52,"pnonce = data.content2", 0, 2, 0); /* m: 5 -> 0,9 */
+	trans[1][1]	= settr(19,0,2,43,43,"partnerB = agentA", 1, 2, 0);
+	trans[1][2]	= settr(20,0,3,44,44,"pkey = keyA", 0, 2, 0);
+	trans[1][3]	= settr(21,0,4,45,45,"network?msg1,agentB,data.key,data.content1,data.content2,data.content3", 1, 503, 0);
+	trans[1][4]	= settr(22,0,9,46,46,"pnonce = data.content2", 0, 2, 0); /* m: 5 -> 0,9 */
 	reached1[5] = 1;
 	trans[1][5]	= settr(0,0,0,0,0,"messageAB.key = pkey",0,0,0);
 	trans[1][6]	= settr(0,0,0,0,0,"messageAB.content1 = agentB",0,0,0);
 	trans[1][7]	= settr(0,0,0,0,0,"messageAB.content2 = pnonce",0,0,0);
 	trans[1][8]	= settr(0,0,0,0,0,"messageAB.content3 = nonceB",0,0,0);
-	trans[1][9]	= settr(29,0,10,53,53,"network!msg2,partnerB,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3", 1, 3, 0);
-	trans[1][10]	= settr(30,0,11,54,54,"network?msg3,agentB,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3", 1, 503, 0);
-	trans[1][11]	= settr(31,0,12,55,55,"statusB = ok", 1, 2, 0);
-	trans[1][12]	= settr(32,0,0,56,56,"-end-", 0, 3500, 0);
+	trans[1][9]	= settr(27,0,10,47,47,"network!msg2,partnerB,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3", 1, 3, 0);
+	trans[1][10]	= settr(28,0,11,48,48,"network?msg3,agentB,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3", 1, 503, 0);
+	trans[1][11]	= settr(29,0,12,49,49,"statusB = ok", 1, 2, 0);
+	trans[1][12]	= settr(30,0,0,50,50,"-end-", 0, 3500, 0);
 
 	/* proctype 0: Alice */
 
-	trans[0] = (Trans **) emalloc(22*sizeof(Trans *));
+	trans[0] = (Trans **) emalloc(20*sizeof(Trans *));
 
 	T = trans[0][5] = settr(4,0,0,0,0,"IF", 0, 2, 0);
 	T = T->nxt	= settr(4,0,1,0,0,"IF", 0, 2, 0);
 	    T->nxt	= settr(4,0,3,0,0,"IF", 0, 2, 0);
-	trans[0][1]	= settr(0,0,2,57,57,"partnerA = agentB", 1, 2, 0);
-	trans[0][2]	= settr(1,0,11,58,58,"pkey = keyB", 0, 2, 0); /* m: 7 -> 0,11 */
+	trans[0][1]	= settr(0,0,2,51,51,"partnerA = agentB", 1, 2, 0);
+	trans[0][2]	= settr(1,0,10,52,52,"pkey = keyB", 0, 2, 0); /* m: 7 -> 0,10 */
 	reached0[7] = 1;
-	trans[0][6]	= settr(5,0,7,1,0,".(goto)", 0, 2, 0); /* m: 7 -> 0,11 */
+	trans[0][6]	= settr(5,0,7,1,0,".(goto)", 0, 2, 0); /* m: 7 -> 0,10 */
 	reached0[7] = 1;
-	trans[0][3]	= settr(2,0,4,59,59,"partnerA = agentI", 1, 2, 0);
-	trans[0][4]	= settr(3,0,11,60,60,"pkey = keyI", 0, 2, 0); /* m: 7 -> 0,11 */
+	trans[0][3]	= settr(2,0,4,53,53,"partnerA = agentI", 1, 2, 0);
+	trans[0][4]	= settr(3,0,10,54,54,"pkey = keyI", 0, 2, 0); /* m: 7 -> 0,10 */
 	reached0[7] = 1;
-	trans[0][7]	= settr(6,0,11,61,61,"messageAB.key = pkey", 0, 2, 0); /* m: 8 -> 0,11 */
+	trans[0][7]	= settr(6,0,10,55,55,"messageAB.key = pkey", 0, 2, 0); /* m: 8 -> 0,10 */
 	reached0[8] = 1;
 	trans[0][8]	= settr(0,0,0,0,0,"messageAB.content1 = agentA",0,0,0);
 	trans[0][9]	= settr(0,0,0,0,0,"messageAB.content2 = nonceA",0,0,0);
-	trans[0][10]	= settr(0,0,0,0,0,"messageAB.content3 = 0",0,0,0);
-	trans[0][11]	= settr(10,0,12,62,62,"network!msg1,partnerA,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3", 1, 3, 0);
-	trans[0][12]	= settr(11,0,13,63,63,"network?msg2,agentA,data.key,data.content1,data.content2,data.content3", 1, 503, 0);
-	trans[0][13]	= settr(12,0,14,64,0,"((((data.key==keyA)&&(data.content1==partnerA))&&(data.content2==nonceA)))", 1, 2, 0);
-	trans[0][14]	= settr(13,0,19,65,65,"pnonce = data.content3", 0, 2, 0); /* m: 15 -> 0,19 */
-	reached0[15] = 1;
-	trans[0][15]	= settr(0,0,0,0,0,"messageAB.key = pkey",0,0,0);
-	trans[0][16]	= settr(0,0,0,0,0,"messageAB.content1 = pnonce",0,0,0);
-	trans[0][17]	= settr(0,0,0,0,0,"messageAB.content2 = 0",0,0,0);
-	trans[0][18]	= settr(0,0,0,0,0,"messageAB.content3 = 0",0,0,0);
-	trans[0][19]	= settr(18,0,20,66,66,"network!msg3,partnerA,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3", 1, 3, 0);
-	trans[0][20]	= settr(19,0,21,67,67,"statusA = ok", 1, 2, 0);
-	trans[0][21]	= settr(20,0,0,68,68,"-end-", 0, 3500, 0);
+	trans[0][10]	= settr(9,0,11,56,56,"network!msg1,partnerA,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3", 1, 3, 0);
+	trans[0][11]	= settr(10,0,12,57,57,"network?msg2,agentA,data.key,data.content1,data.content2,data.content3", 1, 503, 0);
+	trans[0][12]	= settr(11,0,13,58,0,"((((data.key==keyA)&&(data.content1==partnerA))&&(data.content2==nonceA)))", 1, 2, 0);
+	trans[0][13]	= settr(12,0,17,59,59,"pnonce = data.content2", 0, 2, 0); /* m: 14 -> 0,17 */
+	reached0[14] = 1;
+	trans[0][14]	= settr(0,0,0,0,0,"messageAB.key = pkey",0,0,0);
+	trans[0][15]	= settr(0,0,0,0,0,"messageAB.content1 = pnonce",0,0,0);
+	trans[0][16]	= settr(0,0,0,0,0,"messageAB.content2 = 0",0,0,0);
+	trans[0][17]	= settr(16,0,18,60,60,"network!msg3,partnerA,messageAB.key,messageAB.content1,messageAB.content2,messageAB.content3", 1, 3, 0);
+	trans[0][18]	= settr(17,0,19,61,61,"statusA = ok", 1, 2, 0);
+	trans[0][19]	= settr(18,0,0,62,62,"-end-", 0, 3500, 0);
 	/* np_ demon: */
 	trans[_NP_] = (Trans **) emalloc(3*sizeof(Trans *));
 	T = trans[_NP_][0] = settr(9997,0,1,_T5,0,"(np_)", 1,2,0);

@@ -24,33 +24,10 @@ active proctype Alice() {
   Crypt messageAB; /* our encrypted message to the other party     */
   Crypt data;      /* received encrypted message                   */
   byte h;
-  byte i[5];
-   i[0] = 'a'; i[1] = 'a'; i[2] = 'b'; i[3] = 'b'; i[4] = '.'; 
-
-   /* Nondeterministic algorithm for choosing partner */
-   q0: if 
-   :: (h < 5 && i[h] == 'a') -> h++; goto q0
-   :: (h < 5 && i[h] == 'b') -> h++; goto q1 
-   :: (h < 5 && i[h] == 'b') -> h++; goto q3
-   fi;
-
-   q1: if
-   :: (h < 5 && i[h] == 'b') -> h++; goto q1
-   :: (h < 5 && i[h] == '.') -> h++; goto q2 
-   fi;
-
-   q2: 
-   partnerA = agentB;
-   pkey     = keyB;
-
-   q3: if
-   :: (h < 5 && i[h] == 'b') -> h++; goto q3
-   :: (h < 5 && i[h] == '.') -> h++; goto q4 
-   fi;
-
-   q4: 
-   partnerA = agentI;
-   pkey     = keyI;
+  if
+  :: partnerA = agentB; pkey = keyB;
+  :: partnerA = agentI; pkey = keyI;
+  fi;
 //   i[0] = 'a'; i[1] = 'a'; i[2] = 'b'; i[3] = 'b'; i[4] = '.'; 
 
 
@@ -170,6 +147,7 @@ active proctype Intruder() {
 	 :: intercepted.key   = data.key;
 	    intercepted.content1 = data.content1;
 	    intercepted.content2 = data.content2;
+      intercepted.content3 = data.content3;
 	 :: skip;
        fi ;
 
@@ -178,10 +156,19 @@ active proctype Intruder() {
               if
                 :: intercepted.content2 == nonceA -> knows_nonceA = true;
                 :: intercepted.content2 == nonceB -> knows_nonceB = true;
+                :: intercepted.content3 == nonceA -> knows_nonceA = true;
+                :: intercepted.content3 == nonceB -> knows_nonceB = true;
                 :: else -> skip;
               fi
-         :: else -> skip;
+                :: else ->
+            /* even if encrypted for others, record content3 if it equals known nonces */
+            if
+            :: intercepted.content3 == nonceB -> knows_nonceB = true;
+            :: intercepted.content3 == nonceA -> knows_nonceA = true;
+            :: else -> skip;
+            fi
        fi;
+
 
     :: /* Replay or send a message */
        if /* choose message type */
@@ -197,6 +184,7 @@ active proctype Intruder() {
 	 :: data.key    = intercepted.key;
 	    data.content1  = intercepted.content1;
 	    data.content2  = intercepted.content2;
+      data.content3 = intercepted.content3;
 
 	 :: if /* assemble content1 */
 	      :: data.content1 = agentA;
@@ -212,9 +200,19 @@ active proctype Intruder() {
 	    fi ;
 	    if
 	      :: msg == msg3 -> data.content2 = 0;
-	      :: else -> data.content2 = nonceI;
-	    fi;
-       fi ;
+        :: else ->
+          if
+            :: (knows_nonceA) -> data.content2 = nonceA
+            :: (knows_nonceB) -> data.content2 = nonceB
+            :: else -> data.content2 = nonceI
+          fi
+      fi;
+      if
+        :: (knows_nonceB) -> data.content3 = nonceB
+        :: (knows_nonceA) -> data.content3 = nonceA
+        :: else -> data.content3 = nonceI
+        fi       
+      fi ;
       network ! msg (recpt, data);
   od
 }
