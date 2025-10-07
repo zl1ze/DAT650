@@ -49,20 +49,21 @@
 		ungrab_ints(trpt->bup.ovals, 7);
 		goto R999;
 
-	case 8: // STATE 6
+	case 8: // STATE 7
 		;
+		((P2 *)_this)->intercepted.content3 = trpt->bup.ovals[3];
 		((P2 *)_this)->intercepted.content2 = trpt->bup.ovals[2];
 		((P2 *)_this)->intercepted.content1 = trpt->bup.ovals[1];
 		((P2 *)_this)->intercepted.key = trpt->bup.ovals[0];
 		;
-		ungrab_ints(trpt->bup.ovals, 3);
+		ungrab_ints(trpt->bup.ovals, 4);
 		goto R999;
 ;
 		;
 		;
 		;
 		
-	case 11: // STATE 12
+	case 11: // STATE 10
 		;
 		now.knows_nonceA = trpt->bup.oval;
 		;
@@ -70,122 +71,185 @@
 ;
 		;
 		
-	case 13: // STATE 14
+	case 13: // STATE 12
 		;
 		now.knows_nonceB = trpt->bup.oval;
 		;
 		goto R999;
-
-	case 14: // STATE 23
+;
 		;
-		((P2 *)_this)->msg = trpt->bup.oval;
+		
+	case 15: // STATE 14
 		;
-		goto R999;
-
-	case 15: // STATE 24
-		;
-		((P2 *)_this)->msg = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 16: // STATE 25
-		;
-		((P2 *)_this)->msg = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 17: // STATE 28
-		;
-		((P2 *)_this)->recpt = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 18: // STATE 29
-		;
-		((P2 *)_this)->recpt = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 19: // STATE 34
-		;
-		((P2 *)_this)->data.content2 = trpt->bup.ovals[2];
-		((P2 *)_this)->data.content1 = trpt->bup.ovals[1];
-		((P2 *)_this)->data.key = trpt->bup.ovals[0];
-		;
-		ungrab_ints(trpt->bup.ovals, 3);
-		goto R999;
-
-	case 20: // STATE 35
-		;
-		((P2 *)_this)->data.content1 = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 21: // STATE 36
-		;
-		((P2 *)_this)->data.content1 = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 22: // STATE 37
-		;
-		((P2 *)_this)->data.content1 = trpt->bup.oval;
+		now.knows_nonceA = trpt->bup.oval;
 		;
 		goto R999;
 ;
 		;
 		
-	case 24: // STATE 39
+	case 17: // STATE 16
 		;
-		((P2 *)_this)->data.content1 = trpt->bup.oval;
+		now.knows_nonceB = trpt->bup.oval;
 		;
 		goto R999;
 ;
 		;
 		
-	case 26: // STATE 41
+	case 19: // STATE 23
 		;
-		((P2 *)_this)->data.content1 = trpt->bup.oval;
+		now.knows_nonceB = trpt->bup.oval;
+		;
+		goto R999;
+;
+		;
+		
+	case 21: // STATE 25
+		;
+		now.knows_nonceA = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 22: // STATE 32
+		;
+		((P2 *)_this)->msg = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 23: // STATE 33
+		;
+		((P2 *)_this)->msg = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 24: // STATE 34
+		;
+		((P2 *)_this)->msg = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 25: // STATE 37
+		;
+		((P2 *)_this)->recpt = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 26: // STATE 38
+		;
+		((P2 *)_this)->recpt = trpt->bup.oval;
 		;
 		goto R999;
 
 	case 27: // STATE 44
 		;
-		((P2 *)_this)->data.key = trpt->bup.oval;
+		((P2 *)_this)->data.content3 = trpt->bup.ovals[3];
+		((P2 *)_this)->data.content2 = trpt->bup.ovals[2];
+		((P2 *)_this)->data.content1 = trpt->bup.ovals[1];
+		((P2 *)_this)->data.key = trpt->bup.ovals[0];
 		;
+		ungrab_ints(trpt->bup.ovals, 4);
 		goto R999;
 
 	case 28: // STATE 45
 		;
-		((P2 *)_this)->data.key = trpt->bup.oval;
+		((P2 *)_this)->data.content1 = trpt->bup.oval;
 		;
 		goto R999;
 
 	case 29: // STATE 46
 		;
+		((P2 *)_this)->data.content1 = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 30: // STATE 47
+		;
+		((P2 *)_this)->data.content1 = trpt->bup.oval;
+		;
+		goto R999;
+;
+		;
+		
+	case 32: // STATE 49
+		;
+		((P2 *)_this)->data.content1 = trpt->bup.oval;
+		;
+		goto R999;
+;
+		;
+		
+	case 34: // STATE 51
+		;
+		((P2 *)_this)->data.content1 = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 35: // STATE 54
+		;
 		((P2 *)_this)->data.key = trpt->bup.oval;
 		;
 		goto R999;
 
-	case 30: // STATE 50
+	case 36: // STATE 55
+		;
+		((P2 *)_this)->data.key = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 37: // STATE 56
+		;
+		((P2 *)_this)->data.key = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 38: // STATE 60
+		;
+		((P2 *)_this)->data.content2 = trpt->bup.oval;
+		;
+		goto R999;
+;
+		;
+		
+	case 40: // STATE 63
 		;
 		((P2 *)_this)->data.content2 = trpt->bup.oval;
 		;
 		goto R999;
 
-	case 31: // STATE 52
+	case 41: // STATE 65
 		;
 		((P2 *)_this)->data.content2 = trpt->bup.oval;
 		;
 		goto R999;
+;
+		;
+		
+	case 43: // STATE 71
+		;
+		((P2 *)_this)->data.content3 = trpt->bup.oval;
+		;
+		goto R999;
+;
+		;
+		
+	case 45: // STATE 73
+		;
+		((P2 *)_this)->data.content3 = trpt->bup.oval;
+		;
+		goto R999;
 
-	case 32: // STATE 57
+	case 46: // STATE 75
+		;
+		((P2 *)_this)->data.content3 = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 47: // STATE 80
 		;
 		_m = unsend(now.network);
 		;
 		goto R999;
 
-	case 33: // STATE 61
+	case 48: // STATE 84
 		;
 		p_restor(II);
 		;
@@ -194,19 +258,19 @@
 
 		 /* PROC Bob */
 
-	case 34: // STATE 1
+	case 49: // STATE 1
 		;
 		now.partnerB = trpt->bup.oval;
 		;
 		goto R999;
 
-	case 35: // STATE 2
+	case 50: // STATE 2
 		;
 		((P1 *)_this)->pkey = trpt->bup.oval;
 		;
 		goto R999;
 
-	case 36: // STATE 3
+	case 51: // STATE 3
 		;
 		XX = 1;
 		unrecv(now.network, XX-1, 0, 12, 1);
@@ -224,7 +288,7 @@
 		ungrab_ints(trpt->bup.ovals, 4);
 		goto R999;
 
-	case 37: // STATE 8
+	case 52: // STATE 8
 		;
 		((P1 *)_this)->messageAB.content3 = trpt->bup.ovals[4];
 		((P1 *)_this)->messageAB.content2 = trpt->bup.ovals[3];
@@ -235,13 +299,13 @@
 		ungrab_ints(trpt->bup.ovals, 5);
 		goto R999;
 
-	case 38: // STATE 9
+	case 53: // STATE 9
 		;
 		_m = unsend(now.network);
 		;
 		goto R999;
 
-	case 39: // STATE 10
+	case 54: // STATE 10
 		;
 		XX = 1;
 		unrecv(now.network, XX-1, 0, 10, 1);
@@ -259,13 +323,13 @@
 		ungrab_ints(trpt->bup.ovals, 4);
 		goto R999;
 
-	case 40: // STATE 11
+	case 55: // STATE 11
 		;
 		now.statusB = trpt->bup.oval;
 		;
 		goto R999;
 
-	case 41: // STATE 12
+	case 56: // STATE 12
 		;
 		p_restor(II);
 		;
@@ -274,96 +338,57 @@
 
 		 /* PROC Alice */
 
-	case 42: // STATE 5
-		;
-		((P0 *)_this)->i[4] = trpt->bup.ovals[4];
-		((P0 *)_this)->i[3] = trpt->bup.ovals[3];
-		((P0 *)_this)->i[2] = trpt->bup.ovals[2];
-		((P0 *)_this)->i[1] = trpt->bup.ovals[1];
-		((P0 *)_this)->i[0] = trpt->bup.ovals[0];
-		;
-		ungrab_ints(trpt->bup.ovals, 5);
-		goto R999;
-
-	case 43: // STATE 7
-		;
-		((P0 *)_this)->h = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 44: // STATE 10
-		;
-		((P0 *)_this)->h = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 45: // STATE 13
-		;
-		((P0 *)_this)->h = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 46: // STATE 18
-		;
-		((P0 *)_this)->h = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 47: // STATE 21
-		;
-		((P0 *)_this)->h = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 48: // STATE 25
+	case 57: // STATE 1
 		;
 		now.partnerA = trpt->bup.oval;
 		;
 		goto R999;
 
-	case 49: // STATE 26
+	case 58: // STATE 10
 		;
-		((P0 *)_this)->pkey = trpt->bup.ovals[0];
-		;
-		ungrab_ints(trpt->bup.ovals, 2);
-		goto R999;
-
-	case 50: // STATE 28
-		;
-		((P0 *)_this)->h = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 51: // STATE 31
-		;
-		((P0 *)_this)->h = trpt->bup.ovals[0];
-		;
-		ungrab_ints(trpt->bup.ovals, 2);
-		goto R999;
-
-	case 52: // STATE 35
-		;
-		now.partnerA = trpt->bup.oval;
-		;
-		goto R999;
-
-	case 53: // STATE 39
-		;
+		((P0 *)_this)->messageAB.content3 = trpt->bup.ovals[4];
 		((P0 *)_this)->messageAB.content2 = trpt->bup.ovals[3];
 		((P0 *)_this)->messageAB.content1 = trpt->bup.ovals[2];
 		((P0 *)_this)->messageAB.key = trpt->bup.ovals[1];
 		((P0 *)_this)->pkey = trpt->bup.ovals[0];
 		;
+		ungrab_ints(trpt->bup.ovals, 5);
+		goto R999;
+
+	case 59: // STATE 3
+		;
+		now.partnerA = trpt->bup.oval;
+		;
+		goto R999;
+
+	case 60: // STATE 10
+		;
+		((P0 *)_this)->messageAB.content3 = trpt->bup.ovals[4];
+		((P0 *)_this)->messageAB.content2 = trpt->bup.ovals[3];
+		((P0 *)_this)->messageAB.content1 = trpt->bup.ovals[2];
+		((P0 *)_this)->messageAB.key = trpt->bup.ovals[1];
+		((P0 *)_this)->pkey = trpt->bup.ovals[0];
+		;
+		ungrab_ints(trpt->bup.ovals, 5);
+		goto R999;
+
+	case 61: // STATE 10
+		;
+		((P0 *)_this)->messageAB.content3 = trpt->bup.ovals[3];
+		((P0 *)_this)->messageAB.content2 = trpt->bup.ovals[2];
+		((P0 *)_this)->messageAB.content1 = trpt->bup.ovals[1];
+		((P0 *)_this)->messageAB.key = trpt->bup.ovals[0];
+		;
 		ungrab_ints(trpt->bup.ovals, 4);
 		goto R999;
 
-	case 54: // STATE 40
+	case 62: // STATE 11
 		;
 		_m = unsend(now.network);
 		;
 		goto R999;
 
-	case 55: // STATE 41
+	case 63: // STATE 12
 		;
 		XX = 1;
 		unrecv(now.network, XX-1, 0, 11, 1);
@@ -383,29 +408,30 @@
 ;
 		;
 		
-	case 57: // STATE 46
+	case 65: // STATE 18
 		;
+		((P0 *)_this)->messageAB.content3 = trpt->bup.ovals[4];
 		((P0 *)_this)->messageAB.content2 = trpt->bup.ovals[3];
 		((P0 *)_this)->messageAB.content1 = trpt->bup.ovals[2];
 		((P0 *)_this)->messageAB.key = trpt->bup.ovals[1];
 		((P0 *)_this)->pnonce = trpt->bup.ovals[0];
 		;
-		ungrab_ints(trpt->bup.ovals, 4);
+		ungrab_ints(trpt->bup.ovals, 5);
 		goto R999;
 
-	case 58: // STATE 47
+	case 66: // STATE 19
 		;
 		_m = unsend(now.network);
 		;
 		goto R999;
 
-	case 59: // STATE 48
+	case 67: // STATE 20
 		;
 		statusA = trpt->bup.oval;
 		;
 		goto R999;
 
-	case 60: // STATE 49
+	case 68: // STATE 21
 		;
 		p_restor(II);
 		;
