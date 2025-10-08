@@ -140,14 +140,14 @@ typedef struct S_F_MAP {
 } S_F_MAP;
 
 #define _nstates3	11	/* propB */
-#define minseq3	107
-#define maxseq3	116
+#define minseq3	120
+#define maxseq3	129
 #define _endstate3	10
 
-#define _nstates2	77	/* Intruder */
+#define _nstates2	90	/* Intruder */
 #define minseq2	31
-#define maxseq2	106
-#define _endstate2	76
+#define maxseq2	119
+#define _endstate2	89
 
 #define _nstates1	13	/* Bob */
 #define minseq1	19
@@ -169,8 +169,8 @@ extern S_F_MAP src_file1[];
 extern S_F_MAP src_file0[];
 
 #define T_ID	unsigned char
-#define _T5	63
-#define _T2	64
+#define _T5	71
+#define _T2	72
 #define WS		4 /* word size in bytes */
 #define SYNC	1
 #define ASYNC	0
@@ -858,8 +858,8 @@ void qsend(int, int, int, int, int, int, int, int, int);
 #define GLOBAL	7
 #define BAD	8
 #define ALPHA_F	9
-#define NTRANS	65
-unsigned char Is_Recv[117];
+#define NTRANS	73
+unsigned char Is_Recv[130];
 #if defined(BFS_PAR) || NCORE>1
 	void e_critical(int);
 	void x_critical(int);
