@@ -1,0 +1,5 @@
+Task 1:
+The problem in the Ordered function is the snippet 0 < left <= i <= right, specifically 0 < left, since if left is 0 then this will be False, 
+and the function call is Ordered(a,0,a.length), so left is 0, so while the requirement left <= right <= a.length holds the array isnt actually
+sorted even though the checks are green. The reason that sorted from bubble_sort.dfy works is that it handles this problem 
+by having 0 <= l, so that it doesn't return false when l = 0.  
