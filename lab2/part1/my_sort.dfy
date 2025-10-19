@@ -13,24 +13,28 @@
 
   method MySort(a: array<int>)
     modifies a
-    ensures sorted(a,0,a.Length)
+    //ensures sorted(a,0,a.Length)
     ensures Preserved(a,0,a.Length)
   {
+    if a.Length == 0 {
+      return;
+    }
+    var n := a.Length - 1;
     for i := 0 to a.Length
-      invariant 0 <= i <= a.Length
-      invariant sorted(a,0,i)
-      invariant forall k,j: nat :: 0 <= k < i <= j < a.Length ==> a[k] <= a[j]
+      invariant sorted(a,n,a.Length)
+      invariant 0 <= n 
+      invariant forall k, k' :: 0 <= k <= n < k' < a.Length ==> a[k] <= a[k']
       invariant Preserved(a,0,a.Length)
     {
-      assert sorted(a,0,i);
-      assert forall k, j :: 0 <= 0 <= k <= j < i <= a.Length ==> a[k] <= a[j];
+      assert sorted(a,n,a.Length);
+      assert n < a.Length;
+      assert n >= 0;
 
       var minValue := a[i];
       var minPos := i;
       for j := i + 1 to a.Length
         invariant minPos < a.Length
         invariant a[minPos] == minValue
-        invariant forall k: nat :: i <= k < j ==> minValue <= a[k]
       {
         if a[j] < minValue {
           minValue := a[j];

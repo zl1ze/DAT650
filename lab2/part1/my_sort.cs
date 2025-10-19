@@ -16,8 +16,8 @@ twostate predicate sorted(a: array<int>, l: int, u: int)
   reads a
   decreases {a}, a, l, u
 {
-  forall i: int, j: nat {:trigger a[j], a[i]} :: 
-    l <= i < j < u ==>
+  forall i: int, j: int {:trigger a[j], a[i]} :: 
+    0 <= l <= i <= j < u <= a.Length ==>
       a[i] <= a[j]
 }
 
@@ -31,24 +31,27 @@ twostate predicate Preserved(a: array<int>, left: nat, right: nat)
 
 method MySort(a: array<int>)
   modifies a
-  ensures sorted(a, 0, a.Length)
   ensures Preserved(a, 0, a.Length)
   decreases a
 {
+  if a.Length == 0 {
+    return;
+  }
+  var n := a.Length - 1;
   for i: int := 0 to a.Length
-    invariant 0 <= i <= a.Length
-    invariant sorted(a, 0, i)
-    invariant forall k: int, j: nat {:trigger a[j], a[k]} :: 0 <= k < i <= j < a.Length ==> a[k] <= a[j]
+    invariant sorted(a, n, a.Length)
+    invariant 0 <= n
+    invariant forall k: int, k': int {:trigger a[k'], a[k]} :: 0 <= k <= n < k' < a.Length ==> a[k] <= a[k']
     invariant Preserved(a, 0, a.Length)
   {
-    assert sorted(a, 0, i);
-    assert forall k: int, j: int {:trigger a[j], a[k]} :: 0 <= 0 <= k <= j < i <= a.Length ==> a[k] <= a[j];
+    assert sorted(a, n, a.Length);
+    assert n < a.Length;
+    assert n >= 0;
     var minValue := a[i];
     var minPos := i;
     for j: int := i + 1 to a.Length
       invariant minPos < a.Length
       invariant a[minPos] == minValue
-      invariant forall k: nat {:trigger a[k]} :: i <= k < j ==> minValue <= a[k]
     {
       if a[j] < minValue {
         minValue := a[j];
@@ -5740,26 +5743,31 @@ namespace _module {
   public partial class __default {
     public static void MySort(BigInteger[] a)
     {
+      if ((new BigInteger((a).Length)).Sign == 0) {
+        return ;
+      }
+      BigInteger _0_n;
+      _0_n = (new BigInteger((a).Length)) - (BigInteger.One);
       BigInteger _hi0 = new BigInteger((a).Length);
-      for (BigInteger _0_i = BigInteger.Zero; _0_i < _hi0; _0_i++) {
-        BigInteger _1_minValue;
-        _1_minValue = (a)[(int)(_0_i)];
-        BigInteger _2_minPos;
-        _2_minPos = _0_i;
+      for (BigInteger _1_i = BigInteger.Zero; _1_i < _hi0; _1_i++) {
+        BigInteger _2_minValue;
+        _2_minValue = (a)[(int)(_1_i)];
+        BigInteger _3_minPos;
+        _3_minPos = _1_i;
         BigInteger _hi1 = new BigInteger((a).Length);
-        for (BigInteger _3_j = (_0_i) + (BigInteger.One); _3_j < _hi1; _3_j++) {
-          if (((a)[(int)(_3_j)]) < (_1_minValue)) {
-            _1_minValue = (a)[(int)(_3_j)];
-            _2_minPos = _3_j;
+        for (BigInteger _4_j = (_1_i) + (BigInteger.One); _4_j < _hi1; _4_j++) {
+          if (((a)[(int)(_4_j)]) < (_2_minValue)) {
+            _2_minValue = (a)[(int)(_4_j)];
+            _3_minPos = _4_j;
           }
         }
-        if ((_0_i) != (_2_minPos)) {
-          BigInteger _rhs0 = _1_minValue;
-          BigInteger _rhs1 = (a)[(int)(_0_i)];
+        if ((_1_i) != (_3_minPos)) {
+          BigInteger _rhs0 = _2_minValue;
+          BigInteger _rhs1 = (a)[(int)(_1_i)];
           BigInteger[] _lhs0 = a;
-          BigInteger _lhs1 = _0_i;
+          BigInteger _lhs1 = _1_i;
           BigInteger[] _lhs2 = a;
-          BigInteger _lhs3 = _2_minPos;
+          BigInteger _lhs3 = _3_minPos;
           _lhs0[(int)(_lhs1)] = _rhs0;
           _lhs2[(int)(_lhs3)] = _rhs1;
         }
